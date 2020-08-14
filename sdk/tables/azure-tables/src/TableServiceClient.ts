@@ -262,7 +262,7 @@ export class TableServiceClient {
     tableName: string,
     entity: TableEntity<T>,
     options?: CreateTableEntityOptions
-  ): Promise<CreateTableEntityResponse<T>> {
+  ): Promise<CreateTableEntityResponse<TableEntity<T>>> {
     const { queryOptions, ...createTableEntity } = options || {};
     const { _response } = await this.table.insertEntity(tableName, {
       ...createTableEntity,

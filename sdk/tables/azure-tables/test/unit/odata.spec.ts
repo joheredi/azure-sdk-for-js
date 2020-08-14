@@ -1,4 +1,4 @@
-import { odata } from "../src";
+import { odata } from "../../src";
 import { assert } from "chai";
 
 describe("odata", () => {
