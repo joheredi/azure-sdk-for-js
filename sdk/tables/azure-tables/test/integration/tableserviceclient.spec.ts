@@ -7,7 +7,7 @@ import { recordedEnvironmentSetup, createTableServiceClient } from "./utils/reco
 import { isNode } from "@azure/core-http";
 import { assert } from "chai";
 
-describe.only("TableServiceClient", () => {
+describe("TableServiceClient", () => {
   let client: TableServiceClient;
   let recorder: Recorder;
   const suffix = isNode ? "node" : "browser";
