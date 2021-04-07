@@ -57,6 +57,14 @@
       "path": "sdk/core-rest/core-client"
     },
     {
+      "name": "purview-scanning",
+      "path": "sdk/purview/purview-scanning"
+    },
+    {
+      "name": "purview-catalog",
+      "path": "sdk/purview/purview-catalog"
+    },
+    {
       "name": "ai-document-translator",
       "path": "sdk/documenttranslator/ai-document-translator-rest"
     },

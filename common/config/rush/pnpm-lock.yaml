@@ -58,6 +58,8 @@ dependencies:
   '@rush-temp/perf-storage-blob': file:projects/perf-storage-blob.tgz
   '@rush-temp/perf-storage-file-datalake': file:projects/perf-storage-file-datalake.tgz
   '@rush-temp/perf-storage-file-share': file:projects/perf-storage-file-share.tgz
+  '@rush-temp/purview-catalog': file:projects/purview-catalog.tgz
+  '@rush-temp/purview-scanning': file:projects/purview-scanning.tgz
   '@rush-temp/quantum-jobs': file:projects/quantum-jobs.tgz
   '@rush-temp/schema-registry': file:projects/schema-registry.tgz
   '@rush-temp/schema-registry-avro': file:projects/schema-registry-avro.tgz
@@ -1743,6 +1745,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=
+  /at-least-node/1.0.0:
+    dev: false
+    engines:
+      node: '>= 4.0.0'
+    resolution:
+      integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
   /atob/2.1.2:
     dev: false
     engines:
@@ -3433,6 +3441,17 @@ packages:
       node: '>=6 <7 || >=8'
     resolution:
       integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
+  /fs-extra/9.1.0:
+    dependencies:
+      at-least-node: 1.0.0
+      graceful-fs: 4.2.6
+      jsonfile: 6.1.0
+      universalify: 2.0.0
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==
   /fs.realpath/1.0.0:
     dev: false
     resolution:
@@ -4448,6 +4467,14 @@ packages:
       graceful-fs: 4.2.6
     resolution:
       integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=
+  /jsonfile/6.1.0:
+    dependencies:
+      universalify: 2.0.0
+    dev: false
+    optionalDependencies:
+      graceful-fs: 4.2.6
+    resolution:
+      integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==
   /jsonparse/1.2.0:
     dev: false
     engines:
@@ -4940,6 +4967,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-c+yYdCZJQrsRjTPhUx7VKkApw9bwDkNbHUKo1ovgcfDjb2kc8rLuRbIFyXL5WOEUwzSSKo3IXpph2K6DqB/KZg==
+  /marked/2.0.1:
+    dev: false
+    engines:
+      node: '>= 8.16.2'
+    hasBin: true
+    resolution:
+      integrity: sha512-5+/fKgMv2hARmMW7DOpykr2iLhl0NgjyELk5yn92iE7z8Se1IS9n3UsFm86hFXIkvMBmVxki8+ckcpjBeyo/hw==
   /matched/1.0.2:
     dependencies:
       arr-union: 3.1.0
@@ -5458,6 +5492,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==
+  /onigasm/2.2.5:
+    dependencies:
+      lru-cache: 5.1.1
+    dev: false
+    resolution:
+      integrity: sha512-F+th54mPc0l1lp1ZcFMyL/jTs2Tlq4SqIHKIXGZOR/VkHkF9A7Fr5rRr5+ZG/lWeRsyrClLYRq7s/yFQ/XhWCA==
   /open/7.4.2:
     dependencies:
       is-docker: 2.1.1
@@ -6510,6 +6550,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-7gk3UZ9kOfPLIAbslLzyWeGiEqx9e3rxwZM0KE6EL8GlGwjym9Mrlx5/p33bWTu9YG6vcS4MBxYZDHYr5lr8BQ==
+  /shiki/0.9.3:
+    dependencies:
+      onigasm: 2.2.5
+      vscode-textmate: 5.4.0
+    dev: false
+    resolution:
+      integrity: sha512-NEjg1mVbAUrzRv2eIcUt3TG7X9svX7l3n3F5/3OdFq+/BxUdmBOeKGiH4icZJBLHy354Shnj6sfBTemea2e7XA==
   /shx/0.3.3:
     dependencies:
       minimist: 1.2.5
@@ -7222,6 +7269,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==
+  /typedoc-default-themes/0.12.10:
+    dev: false
+    engines:
+      node: '>= 8'
+    resolution:
+      integrity: sha512-fIS001cAYHkyQPidWXmHuhs8usjP5XVJjWB8oZGqkTowZaz3v7g3KDZeeqE82FBrmkAnIBOY3jgy7lnPnqATbA==
   /typedoc-default-themes/0.6.3:
     dependencies:
       backbone: 1.4.0
@@ -7252,6 +7305,28 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-K2nFEtyDQTVdXOzYtECw3TwuT3lM91Zc0dzGSLuor5R8qzZbwqBoCw7xYGVBow6+mEZAvKGznLFsl7FzG+wAgQ==
+  /typedoc/0.20.35_typescript@4.2.3:
+    dependencies:
+      colors: 1.4.0
+      fs-extra: 9.1.0
+      handlebars: 4.7.7
+      lodash: 4.17.21
+      lunr: 2.3.9
+      marked: 2.0.1
+      minimatch: 3.0.4
+      progress: 2.0.3
+      shelljs: 0.8.4
+      shiki: 0.9.3
+      typedoc-default-themes: 0.12.10
+      typescript: 4.2.3
+    dev: false
+    engines:
+      node: '>= 10.8.0'
+    hasBin: true
+    peerDependencies:
+      typescript: 3.9.x || 4.0.x || 4.1.x || 4.2.x
+    resolution:
+      integrity: sha512-7sNca19LXg2hgyGHq3b33tQ1YFApmd8aBDEzWQ2ry4VDkw/NdFWkysGiGRY1QckDCB0gVH8+MlXA4K71IB3azg==
   /typescript/3.7.7:
     dev: false
     engines:
@@ -7325,6 +7400,12 @@ packages:
       node: '>= 4.0.0'
     resolution:
       integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
+  /universalify/2.0.0:
+    dev: false
+    engines:
+      node: '>= 10.0.0'
+    resolution:
+      integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==
   /unpipe/1.0.0:
     dev: false
     engines:
@@ -7444,6 +7525,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
+  /vscode-textmate/5.4.0:
+    dev: false
+    resolution:
+      integrity: sha512-c0Q4zYZkcLizeYJ3hNyaVUM2AA8KDhNCA3JvXY8CeZSJuBdAy3bAvSbv46RClC4P3dSO9BdwhnKEx2zOo6vP/w==
   /webidl-conversions/4.0.2:
     dev: false
     resolution:
@@ -7863,12 +7948,12 @@ packages:
       source-map-support: 0.5.19
       ts-node: 9.1.1_typescript@4.2.3
       tslib: 2.1.0
-      typedoc: 0.15.2
+      typedoc: 0.20.35_typescript@4.2.3
       typescript: 4.2.3
     dev: false
     name: '@rush-temp/ai-document-translator'
     resolution:
-      integrity: sha512-yu19hAy51bnQZtx2dIMA/94gCbEKNfWD7KXey0CALjExzK1D3FU3zcn+WQxA/sF0XUdGVEPi5Aqm7agBzgk3iA==
+      integrity: sha512-jGht6OdcEbBEG2eNuLwRZazVxvMuJoF5tBxOweyvq9N6uAAQCKaR1j85x+vHks4YvwhPrJJVOQXikM68CvPHaA==
       tarball: file:projects/ai-document-translator.tgz
     version: 0.0.0
   file:projects/ai-form-recognizer.tgz:
@@ -10164,6 +10249,42 @@ packages:
       integrity: sha512-mjYaV8s2WtZjhutOHaUUXmi2Ne5i+O/doHq+xoMo8aqmB50wVLSdyG52mRA3JITqy667rK95QQdjyzG6LflpOw==
       tarball: file:projects/perf-storage-file-share.tgz
     version: 0.0.0
+  file:projects/purview-catalog.tgz:
+    dependencies:
+      '@microsoft/api-extractor': 7.13.2
+      '@types/node': 8.10.66
+      dotenv: 8.2.0
+      eslint: 7.22.0
+      prettier: 1.19.1
+      rollup: 1.32.1
+      source-map-support: 0.5.19
+      tslib: 2.1.0
+      typedoc: 0.20.35_typescript@4.2.3
+      typescript: 4.2.3
+    dev: false
+    name: '@rush-temp/purview-catalog'
+    resolution:
+      integrity: sha512-fWmOkZg/gJ3lTAdQNQ+dv+vNjB2oGhnVcD/DXAlrBg3CA89Z+r8sx1TNJ18Cmnnf3CLqI9EzvnqGenOSln6OQg==
+      tarball: file:projects/purview-catalog.tgz
+    version: 0.0.0
+  file:projects/purview-scanning.tgz:
+    dependencies:
+      '@microsoft/api-extractor': 7.13.2
+      '@types/node': 8.10.66
+      dotenv: 8.2.0
+      eslint: 7.22.0
+      prettier: 1.19.1
+      rollup: 1.32.1
+      source-map-support: 0.5.19
+      tslib: 2.1.0
+      typedoc: 0.20.35_typescript@4.2.3
+      typescript: 4.2.3
+    dev: false
+    name: '@rush-temp/purview-scanning'
+    resolution:
+      integrity: sha512-gsKVF6QT98J5BK/xcCPEJZoI4vqNPePX+sAsk2cavTKbyTzmohW1uHTHGzqBGwzRs5D1/9PD6SD/LkUtKnqFsg==
+      tarball: file:projects/purview-scanning.tgz
+    version: 0.0.0
   file:projects/quantum-jobs.tgz:
     dependencies:
       '@azure/core-tracing': 1.0.0-preview.11
@@ -11123,6 +11244,8 @@ specifiers:
   '@rush-temp/perf-storage-blob': file:./projects/perf-storage-blob.tgz
   '@rush-temp/perf-storage-file-datalake': file:./projects/perf-storage-file-datalake.tgz
   '@rush-temp/perf-storage-file-share': file:./projects/perf-storage-file-share.tgz
+  '@rush-temp/purview-catalog': file:./projects/purview-catalog.tgz
+  '@rush-temp/purview-scanning': file:./projects/purview-scanning.tgz
   '@rush-temp/quantum-jobs': file:./projects/quantum-jobs.tgz
   '@rush-temp/schema-registry': file:./projects/schema-registry.tgz
   '@rush-temp/schema-registry-avro': file:./projects/schema-registry-avro.tgz

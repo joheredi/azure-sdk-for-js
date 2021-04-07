@@ -1,0 +1,25 @@
+# Azure Purview Scanning TypeScript Protocol Layer
+
+> see https://aka.ms/autorest
+
+## Configuration
+
+```yaml
+package-name: "@azure-rest/purview-scanning"
+title: PurviewScanning
+description: Purview Scanning Client
+generate-metadata: false
+license-header: MICROSOFT_MIT_NO_VERSION
+output-folder: ../
+source-code-folder-path: ./src
+input-file: https://raw.githubusercontent.com/parvsaxena/azure-rest-api-specs-pr/b3fca1b31d6b703c558e85839d38d58845ad851a/specification/purview/data-plane/Microsoft.Purview/preview/2018-12-01-preview/scanningService.json?token=AFBBZGITH6KXNN3FS467VOLAO4NNO
+package-version: 1.0.0-beta.1
+hide-clients: true
+low-level-client: true
+add-credentials: true
+credential-scopes: "https://purview.azure.net/.default"
+use-extension:
+  "@autorest/typescript": "~/projects/autorest.typescript"
+modelerfour:
+  lenient-model-deduplication: true
+```

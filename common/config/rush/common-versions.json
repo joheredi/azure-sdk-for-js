@@ -68,6 +68,7 @@
     "@azure/identity": ["^2.0.0-beta.1"],
     // Issue #14771 tracks updating to these versions
     "@microsoft/api-extractor": ["7.13.2"],
-    "prettier": ["2.2.1"]
+    "prettier": ["2.2.1"],
+    "typedoc": ["0.20.35"]
   }
 }
