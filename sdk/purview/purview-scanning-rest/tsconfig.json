@@ -3,6 +3,10 @@
   "compilerOptions": {
     "outDir": "./dist-esm",
     "declarationDir": "./types",
+    "paths": {
+      "@azure-rest/purview-scanning": ["./src/index"]
+    }
+    
   },
   "include": [
     "src/**/*.ts",
