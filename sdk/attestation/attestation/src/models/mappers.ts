@@ -6,9 +6,9 @@
  * Changes may cause incorrect behavior and will be lost if the code is regenerated.
  */
 
-import * as coreHttp from "@azure/core-http";
+import { CompositeMapper } from "@azure/core-client";
 
-export const PolicyResponse: coreHttp.CompositeMapper = {
+export const PolicyResponse: CompositeMapper = {
   type: {
     name: "Composite",
     className: "PolicyResponse",
@@ -26,7 +26,7 @@ export const PolicyResponse: coreHttp.CompositeMapper = {
   }
 };
 
-export const CloudError: coreHttp.CompositeMapper = {
+export const CloudError: CompositeMapper = {
   type: {
     name: "Composite",
     className: "CloudError",
@@ -42,7 +42,7 @@ export const CloudError: coreHttp.CompositeMapper = {
   }
 };
 
-export const CloudErrorBody: coreHttp.CompositeMapper = {
+export const CloudErrorBody: CompositeMapper = {
   type: {
     name: "Composite",
     className: "CloudErrorBody",
@@ -63,7 +63,7 @@ export const CloudErrorBody: coreHttp.CompositeMapper = {
   }
 };
 
-export const PolicyCertificatesResponse: coreHttp.CompositeMapper = {
+export const PolicyCertificatesResponse: CompositeMapper = {
   type: {
     name: "Composite",
     className: "PolicyCertificatesResponse",
@@ -81,7 +81,7 @@ export const PolicyCertificatesResponse: coreHttp.CompositeMapper = {
   }
 };
 
-export const PolicyCertificatesModifyResponse: coreHttp.CompositeMapper = {
+export const PolicyCertificatesModifyResponse: CompositeMapper = {
   type: {
     name: "Composite",
     className: "PolicyCertificatesModifyResponse",
@@ -99,7 +99,7 @@ export const PolicyCertificatesModifyResponse: coreHttp.CompositeMapper = {
   }
 };
 
-export const AttestOpenEnclaveRequest: coreHttp.CompositeMapper = {
+export const AttestOpenEnclaveRequest: CompositeMapper = {
   type: {
     name: "Composite",
     className: "AttestOpenEnclaveRequest",
@@ -134,7 +134,7 @@ export const AttestOpenEnclaveRequest: coreHttp.CompositeMapper = {
   }
 };
 
-export const RuntimeData: coreHttp.CompositeMapper = {
+export const RuntimeData: CompositeMapper = {
   type: {
     name: "Composite",
     className: "RuntimeData",
@@ -155,7 +155,7 @@ export const RuntimeData: coreHttp.CompositeMapper = {
   }
 };
 
-export const InitTimeData: coreHttp.CompositeMapper = {
+export const InitTimeData: CompositeMapper = {
   type: {
     name: "Composite",
     className: "InitTimeData",
@@ -176,7 +176,7 @@ export const InitTimeData: coreHttp.CompositeMapper = {
   }
 };
 
-export const AttestationResponse: coreHttp.CompositeMapper = {
+export const AttestationResponse: CompositeMapper = {
   type: {
     name: "Composite",
     className: "AttestationResponse",
@@ -194,7 +194,7 @@ export const AttestationResponse: coreHttp.CompositeMapper = {
   }
 };
 
-export const AttestSgxEnclaveRequest: coreHttp.CompositeMapper = {
+export const AttestSgxEnclaveRequest: CompositeMapper = {
   type: {
     name: "Composite",
     className: "AttestSgxEnclaveRequest",
@@ -229,7 +229,7 @@ export const AttestSgxEnclaveRequest: coreHttp.CompositeMapper = {
   }
 };
 
-export const TpmAttestationRequest: coreHttp.CompositeMapper = {
+export const TpmAttestationRequest: CompositeMapper = {
   type: {
     name: "Composite",
     className: "TpmAttestationRequest",
@@ -244,7 +244,7 @@ export const TpmAttestationRequest: coreHttp.CompositeMapper = {
   }
 };
 
-export const TpmAttestationResponse: coreHttp.CompositeMapper = {
+export const TpmAttestationResponse: CompositeMapper = {
   type: {
     name: "Composite",
     className: "TpmAttestationResponse",
@@ -259,7 +259,7 @@ export const TpmAttestationResponse: coreHttp.CompositeMapper = {
   }
 };
 
-export const JsonWebKeySet: coreHttp.CompositeMapper = {
+export const JsonWebKeySet: CompositeMapper = {
   type: {
     name: "Composite",
     className: "JsonWebKeySet",
@@ -280,7 +280,7 @@ export const JsonWebKeySet: coreHttp.CompositeMapper = {
   }
 };
 
-export const JsonWebKey: coreHttp.CompositeMapper = {
+export const JsonWebKey: CompositeMapper = {
   type: {
     name: "Composite",
     className: "JsonWebKey",
@@ -397,7 +397,7 @@ export const JsonWebKey: coreHttp.CompositeMapper = {
   }
 };
 
-export const AttestationCertificateManagementBody: coreHttp.CompositeMapper = {
+export const AttestationCertificateManagementBody: CompositeMapper = {
   type: {
     name: "Composite",
     className: "AttestationCertificateManagementBody",
@@ -413,7 +413,7 @@ export const AttestationCertificateManagementBody: coreHttp.CompositeMapper = {
   }
 };
 
-export const PolicyCertificatesResult: coreHttp.CompositeMapper = {
+export const PolicyCertificatesResult: CompositeMapper = {
   type: {
     name: "Composite",
     className: "PolicyCertificatesResult",
@@ -429,7 +429,7 @@ export const PolicyCertificatesResult: coreHttp.CompositeMapper = {
   }
 };
 
-export const PolicyCertificatesModificationResult: coreHttp.CompositeMapper = {
+export const PolicyCertificatesModificationResult: CompositeMapper = {
   type: {
     name: "Composite",
     className: "PolicyCertificatesModificationResult",
@@ -450,7 +450,7 @@ export const PolicyCertificatesModificationResult: coreHttp.CompositeMapper = {
   }
 };
 
-export const StoredAttestationPolicy: coreHttp.CompositeMapper = {
+export const StoredAttestationPolicy: CompositeMapper = {
   type: {
     name: "Composite",
     className: "StoredAttestationPolicy",
@@ -465,7 +465,7 @@ export const StoredAttestationPolicy: coreHttp.CompositeMapper = {
   }
 };
 
-export const PolicyResult: coreHttp.CompositeMapper = {
+export const PolicyResult: CompositeMapper = {
   type: {
     name: "Composite",
     className: "PolicyResult",
@@ -502,7 +502,7 @@ export const PolicyResult: coreHttp.CompositeMapper = {
   }
 };
 
-export const AttestationResult: coreHttp.CompositeMapper = {
+export const AttestationResult: CompositeMapper = {
   type: {
     name: "Composite",
     className: "AttestationResult",

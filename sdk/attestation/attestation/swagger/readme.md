@@ -25,7 +25,7 @@ output-folder: ../src/generated
 source-code-folder-path: .
 clear-output-folder: true
 typescript: true
-require: 
+require:
   - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/specification/attestation/data-plane/readme.md
 add-credentials: true
 credential-scopes: https://attest.azure.net/.default
@@ -35,13 +35,10 @@ v3: true
 no-namespace-folders: true
 
 use-extension:
-#  "@autorest/typescript": "latest"
-  "@autorest/typescript": "6.0.0-dev.20201204.2"
-
+  "@autorest/typescript": "latest"
 #directive:
 #  from: swagger-document
 #  where: "$.definitions.PolicyCertificatesModificationResult"
 #  transform: >
 #    $["x-ms-client-name"] = "GeneratedPolicyCertificatesModificationResult"
-
 ```
