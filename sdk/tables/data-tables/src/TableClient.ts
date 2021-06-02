@@ -25,7 +25,12 @@ import {
 } from "./generatedModels";
 import { QueryOptions as GeneratedQueryOptions, SignedIdentifier } from "./generated/models";
 import { getClientParamsFromConnectionString } from "./utils/connectionString";
-import { isNamedKeyCredential, NamedKeyCredential } from "@azure/core-auth";
+import {
+  isNamedKeyCredential,
+  isSASCredential,
+  NamedKeyCredential,
+  SASCredential
+} from "@azure/core-auth";
 import { tablesNamedKeyCredentialPolicy } from "./tablesNamedKeyCredentialPolicy";
 import "@azure/core-paging";
 import { PagedAsyncIterableIterator } from "@azure/core-paging";
@@ -46,6 +51,7 @@ import { ListEntitiesResponse } from "./utils/internalModels";
 import { Uuid } from "./utils/uuid";
 import { parseXML, stringifyXML } from "@azure/core-xml";
 import { Pipeline } from "@azure/core-rest-pipeline";
+import { tablesSASKeyCredentialPolicy } from "./tablesSasKeyCredentialPolicy";
 
 /**
  * A TableClient represents a Client to the Azure Tables service allowing you
@@ -62,7 +68,7 @@ export class TableClient {
    */
   public pipeline: Pipeline;
   private table: Table;
-  private credential: NamedKeyCredential | undefined;
+  private credential: NamedKeyCredential | SASCredential | undefined;
   private transactionClient: InternalTableTransaction | undefined;
 
   /**
@@ -96,7 +102,7 @@ export class TableClient {
   constructor(
     url: string,
     tableName: string,
-    credential: NamedKeyCredential,
+    credential: NamedKeyCredential | SASCredential,
     options?: TableClientOptions
   );
   /**
@@ -126,13 +132,19 @@ export class TableClient {
   constructor(
     url: string,
     tableName: string,
-    credentialOrOptions?: NamedKeyCredential | TableClientOptions,
+    credentialOrOptions?: NamedKeyCredential | SASCredential | TableClientOptions,
     options: TableClientOptions = {}
   ) {
     this.url = url;
-    const credential = isNamedKeyCredential(credentialOrOptions) ? credentialOrOptions : undefined;
-    const clientOptions =
-      (!isNamedKeyCredential(credentialOrOptions) ? credentialOrOptions : options) || {};
+    let credential: NamedKeyCredential | SASCredential | undefined = undefined;
+    let clientOptions: TableClientOptions;
+
+    if (isCredential(credentialOrOptions)) {
+      credential = credentialOrOptions;
+      clientOptions = options;
+    } else {
+      clientOptions = credentialOrOptions ?? {};
+    }
 
     clientOptions.endpoint = clientOptions.endpoint || url;
     if (!clientOptions.userAgentOptions) {
@@ -162,8 +174,10 @@ export class TableClient {
     this.tableName = tableName;
     this.credential = credential;
     const generatedClient = new GeneratedClient(url, internalPipelineOptions);
-    if (credential) {
+    if (isNamedKeyCredential(credential)) {
       generatedClient.pipeline.addPolicy(tablesNamedKeyCredentialPolicy(credential));
+    } else if (isSASCredential(credential)) {
+      generatedClient.pipeline.addPolicy(tablesSASKeyCredentialPolicy(credential));
     }
     this.table = generatedClient.table;
     this.pipeline = generatedClient.pipeline;
@@ -671,4 +685,10 @@ interface InternalListTableEntitiesOptions extends ListTableEntitiesOptions {
    * This option applies for all the properties
    */
   disableTypeConversion?: boolean;
+}
+
+function isCredential(credential: unknown): credential is NamedKeyCredential | SASCredential {
+  const isnamed = isNamedKeyCredential(credential);
+  const issas = isSASCredential(credential);
+  return isnamed || issas;
 }

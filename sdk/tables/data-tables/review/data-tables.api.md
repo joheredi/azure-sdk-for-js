@@ -10,6 +10,7 @@ import { OperationOptions } from '@azure/core-client';
 import { PagedAsyncIterableIterator } from '@azure/core-paging';
 import { Pipeline } from '@azure/core-rest-pipeline';
 import { PipelinePolicy } from '@azure/core-rest-pipeline';
+import { SASCredential } from '@azure/core-auth';
 
 // @public
 export interface AccessPolicy {
@@ -174,7 +175,7 @@ export interface SignedIdentifier {
 
 // @public
 export class TableClient {
-    constructor(url: string, tableName: string, credential: NamedKeyCredential, options?: TableServiceClientOptions);
+    constructor(url: string, tableName: string, credential: NamedKeyCredential | SASCredential, options?: TableServiceClientOptions);
     constructor(url: string, tableName: string, options?: TableServiceClientOptions);
     createEntity<T extends object>(entity: TableEntity<T>, options?: OperationOptions): Promise<CreateTableEntityResponse>;
     createTable(options?: OperationOptions): Promise<void>;

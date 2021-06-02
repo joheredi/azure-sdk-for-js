@@ -20,7 +20,7 @@ import { Pipeline, PipelineRequest } from "@azure/core-rest-pipeline";
 import { DeleteTableEntityResponse, UpdateEntityResponse, UpsertEntityResponse } from "..";
 import { PagedAsyncIterableIterator } from "@azure/core-paging";
 import { OperationOptions } from "@azure/core-client";
-import { NamedKeyCredential } from "@azure/core-auth";
+import { NamedKeyCredential, SASCredential } from "@azure/core-auth";
 
 export interface ConnectionString {
   kind: "AccountConnString" | "SASConnString";
@@ -77,7 +77,10 @@ export interface InnerTransactionRequest {
    * Adds an operation to add to the transaction body
    * @param request - The operation to add
    */
-  appendSubRequestToBody(request: PipelineRequest): void;
+  appendSubRequestToBody(
+    request: PipelineRequest,
+    credential?: NamedKeyCredential | SASCredential
+  ): void;
   /**
    * Gets the transaction request body
    */

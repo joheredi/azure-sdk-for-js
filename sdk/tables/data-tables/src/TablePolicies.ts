@@ -9,6 +9,7 @@ import {
   createHttpHeaders,
   createPipelineRequest
 } from "@azure/core-rest-pipeline";
+import { NamedKeyCredential, SASCredential } from "@azure/core-auth";
 import {
   HeaderConstants,
   TRANSACTION_HTTP_LINE_ENDING,
@@ -26,7 +27,8 @@ const dummyResponse: PipelineResponse = {
 
 export function transactionRequestAssemblePolicy(
   bodyParts: string[],
-  changesetId: string
+  changesetId: string,
+  credential?: SASCredential | NamedKeyCredential
 ): PipelinePolicy {
   return {
     name: transactionRequestAssemblePolicyName,

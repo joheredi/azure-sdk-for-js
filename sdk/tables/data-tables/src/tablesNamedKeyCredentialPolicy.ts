@@ -21,18 +21,21 @@ export const tablesNamedKeyCredentialPolicyName = "tablesNamedKeyCredentialPolic
  * tablesNamedKeyCredentialPolicy is a policy used to sign HTTP request with a shared key.
  */
 export function tablesNamedKeyCredentialPolicy(credential: NamedKeyCredential): PipelinePolicy {
-  function signRequest(request: PipelineRequest): void {
-    const headerValue = getAuthorizationHeader(request, credential);
-    request.headers.set(HeaderConstants.AUTHORIZATION, headerValue);
-  }
-
   return {
     name: tablesNamedKeyCredentialPolicyName,
     async sendRequest(request: PipelineRequest, next: SendRequest): Promise<PipelineResponse> {
-      signRequest(request);
+      signRequestWithNamedKey(request, credential);
       return next(request);
     }
   };
+}
+
+export function signRequestWithNamedKey(
+  request: PipelineRequest,
+  credential: NamedKeyCredential
+): void {
+  const headerValue = getAuthorizationHeader(request, credential);
+  request.headers.set(HeaderConstants.AUTHORIZATION, headerValue);
 }
 
 export function getAuthorizationHeader(

@@ -4,7 +4,7 @@
 import { TableClient, odata, TransactionAction, TableTransaction } from "../../src";
 import { Context } from "mocha";
 import { assert } from "chai";
-import { record, Recorder, isPlaybackMode, isLiveMode } from "@azure/test-utils-recorder";
+import { record, Recorder, isPlaybackMode } from "@azure/test-utils-recorder";
 import { recordedEnvironmentSetup, createTableClient } from "./utils/recordedClient";
 import { isNode } from "@azure/test-utils";
 import { Uuid } from "../../src/utils/uuid";
@@ -25,7 +25,7 @@ describe("batch operations", () => {
 
   // Cannot use SharedKey auth when using recordings since the signature uses the current date
   // which wouldn't match the recorded one. Fallingback to SAS for recorded tests.
-  const authMode = !isNode || !isLiveMode() ? "SASConnectionString" : "AccountConnectionString";
+  const authMode = "SASToken";
 
   beforeEach(async function(this: Context) {
     sinon.stub(Uuid, "generateUuid").returns("fakeId");
@@ -56,7 +56,7 @@ describe("batch operations", () => {
     }
   });
 
-  it("should send a set of create actions when using TableTransaction Helper", async () => {
+  it.only("should send a set of create actions when using TableTransaction Helper", async () => {
     const transaction = new TableTransaction();
     transaction.createEntity({ partitionKey: "helper", rowKey: "1", value: "t1" });
     transaction.createEntity({ partitionKey: "helper", rowKey: "2", value: "t2" });

@@ -28,8 +28,15 @@ import {
   getTransactionHttpRequestBody,
   getInitialTransactionBody
 } from "./utils/transactionHelpers";
-import { NamedKeyCredential } from "@azure/core-auth";
-import { getAuthorizationHeader } from "./tablesNamedKeyCredentialPolicy";
+
+import { signRequestWithNamedKey } from "./tablesNamedKeyCredentialPolicy";
+import { signUrlWithSAS } from "./tablesSasKeyCredentialPolicy";
+import {
+  isNamedKeyCredential,
+  isSASCredential,
+  NamedKeyCredential,
+  SASCredential
+} from "@azure/core-auth";
 
 /**
  * Helper to build a list of transaction actions
@@ -108,7 +115,7 @@ export class InternalTableTransaction {
     partitionKey: string;
   };
   private interceptClient: TableClientLike;
-  private credential?: NamedKeyCredential;
+  private credential?: NamedKeyCredential | SASCredential;
 
   /**
    * @param url - Tables account url
@@ -121,7 +128,7 @@ export class InternalTableTransaction {
     partitionKey: string,
     transactionId: string,
     changesetId: string,
-    credential?: NamedKeyCredential
+    credential?: NamedKeyCredential | SASCredential
   ) {
     this.credential = credential;
     this.url = url;
@@ -130,11 +137,16 @@ export class InternalTableTransaction {
     // Initialize Reset-able properties
     this.resetableState = this.initializeSharedState(transactionId, changesetId, partitionKey);
 
-    // Depending on the auth method used we need to build the url
-    if (!credential) {
-      // When authenticating with SAS we need to add the SAS token after $batch
-      const urlParts = url.split("?");
-      this.url = urlParts[0];
+    if (isSASCredential(credential)) {
+      this.url = signUrlWithSAS(this.url, credential);
+    }
+
+    if (!isNamedKeyCredential(credential)) {
+      // Here we handle the case when users pass a URL that may contain a SAS token
+      const urlParts = this.url.split("?");
+      this.url = urlParts[0].endsWith("/")
+        ? urlParts[0].substr(0, urlParts[0].length - 1)
+        : urlParts[0];
       const sas = urlParts.length > 1 ? `?${urlParts[1]}` : "";
       this.url = `${this.url}/$batch${sas}`;
     } else {
@@ -262,9 +274,8 @@ export class InternalTableTransaction {
       tracingOptions: updatedOptions.tracingOptions
     });
 
-    if (this.credential) {
-      const authHeader = getAuthorizationHeader(request, this.credential);
-      request.headers.set("Authorization", authHeader);
+    if (isNamedKeyCredential(this.credential)) {
+      signRequestWithNamedKey(request, this.credential);
     }
 
     try {
