@@ -28,7 +28,7 @@ import {
   getTransactionHttpRequestBody,
   getInitialTransactionBody
 } from "./utils/transactionHelpers";
-import { NamedKeyCredential } from "../../../core/core-auth/types/latest/core-auth";
+import { NamedKeyCredential } from "@azure/core-auth";
 import { getAuthorizationHeader } from "./tablesNamedKeyCredentialPolicy";
 
 /**
