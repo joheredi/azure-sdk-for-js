@@ -2,8 +2,8 @@
 // Licensed under the MIT license.
 
 import { env, RecorderEnvironmentSetup } from "@azure/test-utils-recorder";
-
-import { TableClient, TableServiceClient, TablesSharedKeyCredential } from "../../../src";
+import { AzureNamedKeyCredential } from "@azure/core-auth";
+import { TableClient, TableServiceClient } from "../../../src";
 
 import "./env";
 
@@ -89,7 +89,7 @@ export function createTableClient(
       return new TableClient(
         env.TABLES_URL,
         tableName,
-        new TablesSharedKeyCredential(env.ACCOUNT_NAME, env.ACCOUNT_KEY)
+        new AzureNamedKeyCredential(env.ACCOUNT_NAME, env.ACCOUNT_KEY)
       );
 
     case "AccountConnectionString":
@@ -137,7 +137,7 @@ export function createTableServiceClient(
 
       return new TableServiceClient(
         env.TABLES_URL,
-        new TablesSharedKeyCredential(env.ACCOUNT_NAME, env.ACCOUNT_KEY)
+        new AzureNamedKeyCredential(env.ACCOUNT_NAME, env.ACCOUNT_KEY)
       );
 
     case "AccountConnectionString":

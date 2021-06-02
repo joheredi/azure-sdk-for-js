@@ -3,7 +3,7 @@
 
 import { TableServiceClientOptions } from "..";
 import { ClientParamsFromConnectionString, ConnectionString } from "./internalModels";
-import { TablesSharedKeyCredential } from "../TablesSharedKeyCredential";
+import { AzureNamedKeyCredential } from "@azure/core-auth";
 
 /**
  * Gets client parameters from an Account Connection String
@@ -15,7 +15,7 @@ export function fromAccountConnectionString(
   extractedCreds: ConnectionString,
   options: TableServiceClientOptions = {}
 ): ClientParamsFromConnectionString {
-  const sharedKeyCredential = new TablesSharedKeyCredential(
+  const sharedKeyCredential = new AzureNamedKeyCredential(
     extractedCreds.accountName!,
     extractedCreds.accountKey
   );

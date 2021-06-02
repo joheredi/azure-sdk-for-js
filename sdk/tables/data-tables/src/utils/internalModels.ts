@@ -16,11 +16,11 @@ import {
   TransactionAction,
   TableTransactionResponse
 } from "../models";
-import { TablesSharedKeyCredential } from "../TablesSharedKeyCredential";
 import { Pipeline, PipelineRequest } from "@azure/core-rest-pipeline";
 import { DeleteTableEntityResponse, UpdateEntityResponse, UpsertEntityResponse } from "..";
 import { PagedAsyncIterableIterator } from "@azure/core-paging";
 import { OperationOptions } from "@azure/core-client";
+import { NamedKeyCredential } from "@azure/core-auth";
 
 export interface ConnectionString {
   kind: "AccountConnString" | "SASConnString";
@@ -57,7 +57,7 @@ export type ListEntitiesResponse<T extends object> = Array<TableEntityResult<T>>
 export interface ClientParamsFromConnectionString {
   url: string;
   options?: TableServiceClientOptions;
-  credential?: TablesSharedKeyCredential;
+  credential?: NamedKeyCredential;
 }
 
 /**

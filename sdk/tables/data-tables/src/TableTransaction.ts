@@ -17,8 +17,6 @@ import {
   TableTransactionEntityResponse,
   TransactionAction
 } from "./models";
-import { TablesSharedKeyCredentialLike } from "./TablesSharedKeyCredential";
-import { getAuthorizationHeader } from "./TablesSharedKeyCredentialPolicy";
 import { TableClientLike } from "./utils/internalModels";
 import { createSpan } from "./utils/tracing";
 import { SpanStatusCode } from "@azure/core-tracing";
@@ -30,6 +28,8 @@ import {
   getTransactionHttpRequestBody,
   getInitialTransactionBody
 } from "./utils/transactionHelpers";
+import { NamedKeyCredential } from "../../../core/core-auth/types/latest/core-auth";
+import { getAuthorizationHeader } from "./tablesNamedKeyCredentialPolicy";
 
 /**
  * Helper to build a list of transaction actions
@@ -108,7 +108,7 @@ export class InternalTableTransaction {
     partitionKey: string;
   };
   private interceptClient: TableClientLike;
-  private credential?: TablesSharedKeyCredentialLike;
+  private credential?: NamedKeyCredential;
 
   /**
    * @param url - Tables account url
@@ -121,7 +121,7 @@ export class InternalTableTransaction {
     partitionKey: string,
     transactionId: string,
     changesetId: string,
-    credential?: TablesSharedKeyCredentialLike
+    credential?: NamedKeyCredential
   ) {
     this.credential = credential;
     this.url = url;

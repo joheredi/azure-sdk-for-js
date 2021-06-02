@@ -18,7 +18,7 @@ import {
   SetPropertiesResponse
 } from "./generatedModels";
 import { getClientParamsFromConnectionString } from "./utils/connectionString";
-import { TablesSharedKeyCredential } from "./TablesSharedKeyCredential";
+import { isNamedKeyCredential, NamedKeyCredential } from "@azure/core-auth";
 import "@azure/core-paging";
 import { PagedAsyncIterableIterator } from "@azure/core-paging";
 import { LIB_INFO, TablesLoggingAllowedHeaderNames } from "./utils/constants";
@@ -26,7 +26,7 @@ import { logger } from "./logger";
 import { InternalClientPipelineOptions, OperationOptions } from "@azure/core-client";
 import { SpanStatusCode } from "@azure/core-tracing";
 import { createSpan } from "./utils/tracing";
-import { tablesSharedKeyCredentialPolicy } from "./TablesSharedKeyCredentialPolicy";
+import { tablesNamedKeyCredentialPolicy } from "./tablesNamedKeyCredentialPolicy";
 import { parseXML, stringifyXML } from "@azure/core-xml";
 import { ListTableItemsResponse } from "./utils/internalModels";
 import { Pipeline } from "@azure/core-rest-pipeline";
@@ -69,11 +69,7 @@ export class TableServiceClient {
    * );
    * ```
    */
-  constructor(
-    url: string,
-    credential: TablesSharedKeyCredential,
-    options?: TableServiceClientOptions
-  );
+  constructor(url: string, credential: NamedKeyCredential, options?: TableServiceClientOptions);
   /**
    * Creates a new instance of the TableServiceClient class.
    *
@@ -95,16 +91,13 @@ export class TableServiceClient {
   constructor(url: string, options?: TableServiceClientOptions);
   constructor(
     url: string,
-    credentialOrOptions?: TablesSharedKeyCredential | TableServiceClientOptions,
+    credentialOrOptions?: NamedKeyCredential | TableServiceClientOptions,
     options?: TableServiceClientOptions
   ) {
     this.url = url;
-    const credential =
-      credentialOrOptions instanceof TablesSharedKeyCredential ? credentialOrOptions : undefined;
+    const credential = isNamedKeyCredential(credentialOrOptions) ? credentialOrOptions : undefined;
     const clientOptions =
-      (!(credentialOrOptions instanceof TablesSharedKeyCredential)
-        ? credentialOrOptions
-        : options) || {};
+      (!isNamedKeyCredential(credentialOrOptions) ? credentialOrOptions : options) || {};
 
     clientOptions.endpoint = clientOptions.endpoint || url;
 
@@ -136,7 +129,7 @@ export class TableServiceClient {
 
     const client = new GeneratedClient(url, internalPipelineOptions);
     if (credential) {
-      client.pipeline.addPolicy(tablesSharedKeyCredentialPolicy(credential));
+      client.pipeline.addPolicy(tablesNamedKeyCredentialPolicy(credential));
     }
     this.pipeline = client.pipeline;
     this.table = client.table;
