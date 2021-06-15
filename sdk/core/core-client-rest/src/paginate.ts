@@ -3,6 +3,7 @@
 import { Client, PathUncheckedResponse } from "./getClient";
 import "@azure/core-paging";
 import { PagedAsyncIterableIterator } from "@azure/core-paging";
+import { Http20xStatusCodes } from "./constants";
 
 const DEFAULT_NEXTLINK = "nextLink";
 const DEFAULT_VALUES = "value";
@@ -63,7 +64,7 @@ async function* listPage<T = Record<string, any>[]>(
 }
 
 function checkPagingRequest(response: PathUncheckedResponse) {
-  if (!["200", "201", "204"].includes(response.status)) {
+  if (!Http20xStatusCodes.includes(response.status)) {
     throw (
       response.body?.error ?? {
         message: `Pagination failed`,

@@ -13,7 +13,7 @@ import {
 import { FormRecognizerRequestBody, FormPageArray } from "../../models";
 import { RecognizeContentResultResponse } from "../../internalModels";
 export { OperationStatus };
-
+export type OperationStatus = "notStarted" | "running" | "succeeded" | "failed";
 export interface ContentPollerOperationOptions {
   /**
    * Time between each polling in milliseconds.
