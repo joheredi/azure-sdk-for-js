@@ -3,7 +3,7 @@ import { Client, getClient } from "../src";
 import { paginate } from "../src/paginate";
 import { PipelineResponse, createHttpHeaders } from "@azure/core-rest-pipeline";
 import { URL } from "../src/url";
-describe.only("Paginate heleper", () => {
+describe("Paginate heleper", () => {
   let client: Client;
 
   beforeEach(() => {
