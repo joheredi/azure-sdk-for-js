@@ -1,12 +1,14 @@
 # Release History
 
-## 1.0.0 (Unreleased)
+## 1.0.0 (2022-09-09)
 
 ### Features Added
+
 - Added filter to `listDeviceClasses` method
 - Updated description for some methods to be more descriptive and less ambiguous
 
 ### Other Changes
+
 - Removed filter from `listBestUpdatesForGroup` method
 
 ## 1.0.0-beta.2 (2022-07-08)
@@ -24,4 +26,4 @@
 
 ## 1.0.0-beta.1 (2022-01-21)
 
-  - Initial Release
+- Initial Release
