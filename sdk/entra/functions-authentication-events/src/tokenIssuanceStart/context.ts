@@ -1,9 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-// Copyright (c) .NET Foundation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-
 /**
  * Container file for all interfaces that pertain to the OnTokenIssuanceStart event API schema version 10-01-2021-preview.
  */
