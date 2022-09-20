@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 import { TokenIssuanceStartRequest } from "@azure/functions-authentication-events";
 
 export const request: TokenIssuanceStartRequest = {
