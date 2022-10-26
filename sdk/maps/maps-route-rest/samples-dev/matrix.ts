@@ -7,11 +7,10 @@
 
 import { AzureKeyCredential } from "@azure/core-auth";
 // import { DefaultAzureCredential } from "@azure/identity";
-import {
-  createMapsRouteClient,
+import createMapsRouteClient, {
   RouteGetRouteMatrix200Response,
   isUnexpected,
-} from "@azure-rest/maps-route";
+} from "@azure-rest/maps-route/rest";
 
 // Load the .env file if it exists
 import * as dotenv from "dotenv";

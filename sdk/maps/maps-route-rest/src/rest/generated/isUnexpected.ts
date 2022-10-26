@@ -13,8 +13,8 @@ import {
   RouteGetRouteRangeDefaultResponse,
   RouteRequestRouteDirectionsBatchSync200Response,
   RouteRequestRouteDirectionsBatchSync408Response,
-  RouteRequestRouteDirectionsBatchSyncDefaultResponse
-} from "./responses";
+  RouteRequestRouteDirectionsBatchSyncDefaultResponse,
+} from "./responses.js";
 
 const responseMap: Record<string, string[]> = {
   "POST /route/matrix/{format}": ["200", "202"],
@@ -25,7 +25,7 @@ const responseMap: Record<string, string[]> = {
   "GET /route/range/{format}": ["200"],
   "POST /route/directions/batch/{format}": ["200", "202"],
   "GET /route/directions/batch/{format}": ["200", "202"],
-  "POST /route/directions/batch/sync/{format}": ["200"]
+  "POST /route/directions/batch/sync/{format}": ["200"],
 };
 
 export function isUnexpected(
@@ -35,9 +35,7 @@ export function isUnexpected(
     | RouteRequestRouteMatrixSyncDefaultResponse
 ): response is RouteRequestRouteMatrixSync408Response;
 export function isUnexpected(
-  response:
-    | RouteGetRouteDirections200Response
-    | RouteGetRouteDirectionsDefaultResponse
+  response: RouteGetRouteDirections200Response | RouteGetRouteDirectionsDefaultResponse
 ): response is RouteGetRouteDirectionsDefaultResponse;
 export function isUnexpected(
   response:
@@ -52,7 +50,9 @@ export function isUnexpected(
     | RouteRequestRouteDirectionsBatchSync200Response
     | RouteRequestRouteDirectionsBatchSync408Response
     | RouteRequestRouteDirectionsBatchSyncDefaultResponse
-): response is RouteRequestRouteDirectionsBatchSync408Response;
+): response is
+  | RouteRequestRouteDirectionsBatchSync408Response
+  | RouteRequestRouteDirectionsBatchSyncDefaultResponse;
 export function isUnexpected(
   response:
     | RouteRequestRouteMatrixSync200Response
@@ -101,17 +101,11 @@ function geParametrizedPathSuccess(method: string, path: string): string[] {
 
     // If the candidate and actual paths don't match in size
     // we move on to the next candidate path
-    if (
-      candidateParts.length === pathParts.length &&
-      hasParametrizedPath(key)
-    ) {
+    if (candidateParts.length === pathParts.length && hasParametrizedPath(key)) {
       // track if we have found a match to return the values found.
       let found = true;
       for (let i = 0; i < candidateParts.length; i++) {
-        if (
-          candidateParts[i]?.startsWith("{") &&
-          candidateParts[i]?.endsWith("}")
-        ) {
+        if (candidateParts[i]?.startsWith("{") && candidateParts[i]?.endsWith("}")) {
           // If the current part of the candidate is a "template" part
           // it is a match with the actual path part on hand
           // skip as the parameterized part can match anything

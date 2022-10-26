@@ -6,7 +6,7 @@ import {
   RouteGetRouteDirectionsQueryParamProperties,
   createRouteDirectionsBatchRequest,
   toColonDelimitedLatLonString,
-} from "../../src";
+} from "../../src/index.js";
 import { assert } from "chai";
 import { LatLon } from "@azure/maps-common";
 

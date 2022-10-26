@@ -4,8 +4,8 @@
 import { ClientOptions } from "@azure-rest/core-client";
 import { AzureKeyCredential, TokenCredential, isTokenCredential } from "@azure/core-auth";
 import { createMapsClientIdPolicy } from "@azure/maps-common";
-import { MapsRouteClient } from "./generated";
-import createClient from "./generated";
+import { MapsRouteClient } from "./generated/index.js";
+import createClient from "./generated/index.js";
 import { bearerTokenAuthenticationPolicy } from "@azure/core-rest-pipeline";
 
 /**

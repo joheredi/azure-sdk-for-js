@@ -4,9 +4,7 @@
 
 ```ts
 
-import { AzureKeyCredential } from '@azure/core-auth';
 import { Client } from '@azure-rest/core-client';
-import { ClientOptions } from '@azure-rest/core-client';
 import { HttpResponse } from '@azure-rest/core-client';
 import { LatLon } from '@azure/maps-common';
 import { LroEngineOptions } from '@azure/core-lro';
@@ -15,7 +13,6 @@ import { PollOperationState } from '@azure/core-lro';
 import { RawHttpHeaders } from '@azure/core-rest-pipeline';
 import { RequestParameters } from '@azure-rest/core-client';
 import { StreamableMethod } from '@azure-rest/core-client';
-import { TokenCredential } from '@azure/core-auth';
 
 // @public
 export interface BatchRequest {
@@ -42,12 +39,6 @@ export interface BatchResultSummaryOutput {
     successfulRequests: number;
     totalRequests: number;
 }
-
-// @public
-export function createMapsRouteClient(credential: AzureKeyCredential, options?: ClientOptions): MapsRouteClient;
-
-// @public
-export function createMapsRouteClient(credential: TokenCredential, mapsAccountClientId: string, options?: ClientOptions): MapsRouteClient;
 
 // @public
 export function createRouteDirectionsBatchRequest(queryParamProperties: RouteGetRouteDirectionsQueryParamProperties[]): BatchRequest;
@@ -216,7 +207,7 @@ export function isUnexpected(response: RouteGetRouteDirectionsWithAdditionalPara
 export function isUnexpected(response: RouteGetRouteRange200Response | RouteGetRouteRangeDefaultResponse): response is RouteGetRouteRangeDefaultResponse;
 
 // @public (undocumented)
-export function isUnexpected(response: RouteRequestRouteDirectionsBatchSync200Response | RouteRequestRouteDirectionsBatchSync408Response | RouteRequestRouteDirectionsBatchSyncDefaultResponse): response is RouteRequestRouteDirectionsBatchSync408Response;
+export function isUnexpected(response: RouteRequestRouteDirectionsBatchSync200Response | RouteRequestRouteDirectionsBatchSync408Response | RouteRequestRouteDirectionsBatchSyncDefaultResponse): response is RouteRequestRouteDirectionsBatchSync408Response | RouteRequestRouteDirectionsBatchSyncDefaultResponse;
 
 // @public
 export interface LatLongPairOutput {

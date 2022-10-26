@@ -7,13 +7,12 @@
 
 import { AzureKeyCredential } from "@azure/core-auth";
 // import { DefaultAzureCredential } from "@azure/identity";
-import {
-  createMapsRouteClient,
+import createMapsRouteClient, {
   createRouteDirectionsBatchRequest,
   getLongRunningPoller,
   RouteGetRouteDirectionsBatch200Response,
   toColonDelimitedLatLonString,
-} from "@azure-rest/maps-route";
+} from "@azure-rest/maps-route/rest";
 import * as dotenv from "dotenv";
 
 dotenv.config();

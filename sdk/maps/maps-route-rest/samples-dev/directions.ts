@@ -7,13 +7,11 @@
 
 import { AzureKeyCredential } from "@azure/core-auth";
 // import { DefaultAzureCredential } from "@azure/identity";
-import {
-  createMapsRouteClient,
-  createRouteDirectionsBatchRequest,
-  isUnexpected,
+import createMapsRouteClient, {
   toColonDelimitedLatLonString,
-  RouteRequestRouteDirectionsBatchSync200Response,
-} from "@azure-rest/maps-route";
+  isUnexpected,
+  createRouteDirectionsBatchRequest,
+} from "@azure-rest/maps-route/rest";
 
 // Load the .env file if it exists
 import * as dotenv from "dotenv";
@@ -186,10 +184,8 @@ async function main() {
     throw routeDirectionBatchInitRes.body.error;
   }
 
-  const {
-    summary,
-    batchItems,
-  } = (routeDirectionBatchInitRes as RouteRequestRouteDirectionsBatchSync200Response).body;
+  routeDirectionBatchInitRes;
+  const { summary, batchItems } = routeDirectionBatchInitRes.body;
   console.log(`${summary.successfulRequests}/${summary.totalRequests} requests succeeded.`);
   batchItems.forEach((item, index) => {
     if (item.response.error) {

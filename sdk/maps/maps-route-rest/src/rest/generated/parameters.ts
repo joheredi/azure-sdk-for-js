@@ -2,11 +2,7 @@
 // Licensed under the MIT license.
 
 import { RequestParameters } from "@azure-rest/core-client";
-import {
-  RouteMatrixQuery,
-  RouteDirectionParameters,
-  BatchRequest
-} from "./models";
+import { RouteMatrixQuery, RouteDirectionParameters, BatchRequest } from "./models.js";
 
 export interface RouteRequestRouteMatrixBodyParam {
   /** The matrix of origin and destination coordinates to compute the route distance, travel time and other summary for each cell of the matrix based on the input parameters. The minimum and the maximum cell count supported are 1 and **700** for async and **100** for sync respectively. For example, it can be 35 origins and 20 destinations or 25 origins and 25 destinations for async API. */

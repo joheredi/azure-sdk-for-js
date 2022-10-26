@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 import { LatLon } from "@azure/maps-common";
-import { BatchRequest, RouteGetRouteDirectionsQueryParamProperties } from "./generated";
+import { BatchRequest, RouteGetRouteDirectionsQueryParamProperties } from "./generated/index.js";
 
 function toLatLonString(coordinates: LatLon): string {
   return `${coordinates[0]},${coordinates[1]}`;

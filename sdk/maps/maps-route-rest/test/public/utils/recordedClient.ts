@@ -6,9 +6,9 @@ import { Recorder, RecorderStartOptions, env } from "@azure-tools/test-recorder"
 import "./env";
 import { createClientLogger } from "@azure/logger";
 import { AzureKeyCredential } from "@azure/core-auth";
-import createMapsRouteClient from "../../../src/mapsRouteClient";
+import createMapsRouteClient from "../../../src/rest/index.js";
 import { ClientOptions } from "@azure-rest/core-client";
-import { MapsRouteClient } from "../../../src/generated";
+import { MapsRouteClient } from "../../../src/rest/generated/clientDefinitions.js";
 
 const envSetupForPlayback: Record<string, string> = {
   AZURE_CLIENT_ID: "azure_client_id",

@@ -10,8 +10,8 @@ import {
   RouteGetRouteRangeParameters,
   RouteRequestRouteDirectionsBatchParameters,
   RouteGetRouteDirectionsBatchParameters,
-  RouteRequestRouteDirectionsBatchSyncParameters
-} from "./parameters";
+  RouteRequestRouteDirectionsBatchSyncParameters,
+} from "./parameters.js";
 import {
   RouteRequestRouteMatrix200Response,
   RouteRequestRouteMatrix202Response,
@@ -32,8 +32,8 @@ import {
   RouteGetRouteDirectionsBatch202Response,
   RouteRequestRouteDirectionsBatchSync200Response,
   RouteRequestRouteDirectionsBatchSync408Response,
-  RouteRequestRouteDirectionsBatchSyncDefaultResponse
-} from "./responses";
+  RouteRequestRouteDirectionsBatchSyncDefaultResponse,
+} from "./responses.js";
 import { Client, StreamableMethod } from "@azure-rest/core-client";
 
 export interface RequestRouteMatrix {
@@ -110,9 +110,7 @@ export interface RequestRouteMatrix {
    */
   post(
     options: RouteRequestRouteMatrixParameters
-  ): StreamableMethod<
-    RouteRequestRouteMatrix200Response | RouteRequestRouteMatrix202Response
-  >;
+  ): StreamableMethod<RouteRequestRouteMatrix200Response | RouteRequestRouteMatrix202Response>;
   /**
    * **Applies to**: see pricing [tiers](https://aka.ms/AzureMapsPricingTier).
    *
@@ -142,9 +140,7 @@ export interface RequestRouteMatrix {
    */
   get(
     options?: RouteGetRouteMatrixParameters
-  ): StreamableMethod<
-    RouteGetRouteMatrix200Response | RouteGetRouteMatrix202Response
-  >;
+  ): StreamableMethod<RouteGetRouteMatrix200Response | RouteGetRouteMatrix202Response>;
 }
 
 export interface RequestRouteMatrixSync {
@@ -241,9 +237,7 @@ export interface GetRouteDirections {
    */
   get(
     options: RouteGetRouteDirectionsParameters
-  ): StreamableMethod<
-    RouteGetRouteDirections200Response | RouteGetRouteDirectionsDefaultResponse
-  >;
+  ): StreamableMethod<RouteGetRouteDirections200Response | RouteGetRouteDirectionsDefaultResponse>;
   /**
    * **Applies to**: see pricing [tiers](https://aka.ms/AzureMapsPricingTier).
    *
@@ -275,9 +269,7 @@ export interface GetRouteRange {
    */
   get(
     options: RouteGetRouteRangeParameters
-  ): StreamableMethod<
-    RouteGetRouteRange200Response | RouteGetRouteRangeDefaultResponse
-  >;
+  ): StreamableMethod<RouteGetRouteRange200Response | RouteGetRouteRangeDefaultResponse>;
 }
 
 export interface RequestRouteDirectionsBatch {
@@ -435,8 +427,7 @@ export interface RequestRouteDirectionsBatch {
   post(
     options: RouteRequestRouteDirectionsBatchParameters
   ): StreamableMethod<
-    | RouteRequestRouteDirectionsBatch200Response
-    | RouteRequestRouteDirectionsBatch202Response
+    RouteRequestRouteDirectionsBatch200Response | RouteRequestRouteDirectionsBatch202Response
   >;
   /**
    * **Applies to**: see pricing [tiers](https://aka.ms/AzureMapsPricingTier).
@@ -542,8 +533,7 @@ export interface RequestRouteDirectionsBatch {
   get(
     options?: RouteGetRouteDirectionsBatchParameters
   ): StreamableMethod<
-    | RouteGetRouteDirectionsBatch200Response
-    | RouteGetRouteDirectionsBatch202Response
+    RouteGetRouteDirectionsBatch200Response | RouteGetRouteDirectionsBatch202Response
   >;
 }
 
@@ -659,22 +649,13 @@ export interface Routes {
   /** Resource for '/route/matrix/sync/\{format\}' has methods for the following verbs: post */
   (path: "/route/matrix/sync/{format}", format: "json"): RequestRouteMatrixSync;
   /** Resource for '/route/directions/\{format\}' has methods for the following verbs: get, post */
-  (
-    path: "/route/directions/{format}",
-    format: "json" | "xml"
-  ): GetRouteDirections;
+  (path: "/route/directions/{format}", format: "json" | "xml"): GetRouteDirections;
   /** Resource for '/route/range/\{format\}' has methods for the following verbs: get */
   (path: "/route/range/{format}", format: "json" | "xml"): GetRouteRange;
   /** Resource for '/route/directions/batch/\{format\}' has methods for the following verbs: post, get */
-  (
-    path: "/route/directions/batch/{format}",
-    format: "json"
-  ): RequestRouteDirectionsBatch;
+  (path: "/route/directions/batch/{format}", format: "json"): RequestRouteDirectionsBatch;
   /** Resource for '/route/directions/batch/sync/\{format\}' has methods for the following verbs: post */
-  (
-    path: "/route/directions/batch/sync/{format}",
-    format: "json"
-  ): RequestRouteDirectionsBatchSync;
+  (path: "/route/directions/batch/sync/{format}", format: "json"): RequestRouteDirectionsBatchSync;
 }
 
 export type MapsRouteClient = Client & {

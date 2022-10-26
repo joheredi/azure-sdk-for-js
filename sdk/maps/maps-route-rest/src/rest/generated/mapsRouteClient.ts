@@ -3,7 +3,7 @@
 
 import { getClient, ClientOptions } from "@azure-rest/core-client";
 import { KeyCredential } from "@azure/core-auth";
-import { MapsRouteClient } from "./clientDefinitions";
+import { MapsRouteClient } from "./clientDefinitions.js";
 
 /**
  * Initialize a new instance of the class MapsRouteClient class.
@@ -18,8 +18,8 @@ export default function createClient(
   options = {
     ...options,
     credentials: {
-      apiKeyHeaderName: "subscription-key"
-    }
+      apiKeyHeaderName: "subscription-key",
+    },
   };
 
   const userAgentInfo = `azsdk-js-maps-route-rest/1.0.0-beta.1`;
@@ -30,8 +30,8 @@ export default function createClient(
   options = {
     ...options,
     userAgentOptions: {
-      userAgentPrefix
-    }
+      userAgentPrefix,
+    },
   };
 
   const client = getClient(baseUrl, credentials, options) as MapsRouteClient;

@@ -1161,7 +1161,7 @@ packages:
       '@azure/core-util': 1.1.1
       '@azure/logger': 1.0.3
       '@azure/msal-browser': 2.28.0
-      '@azure/msal-common': 7.2.0
+      '@azure/msal-common': 7.6.0
       '@azure/msal-node': 1.14.2
       events: 3.3.0
       jws: 4.0.0
@@ -1336,11 +1336,6 @@ packages:
       - supports-color
     dev: false
 
-  /@azure/msal-common/7.2.0:
-    resolution: {integrity: sha512-+Oz8LKTOACDHqDmv+MZy/z+DZRH8RZbMjhadmvp0scQ0R75OrzZro+HkxifWhtDG8l1ViYkvV9NHb4pEZyajAQ==}
-    engines: {node: '>=0.8.0'}
-    dev: false
-
   /@azure/msal-common/7.6.0:
     resolution: {integrity: sha512-XqfbglUTVLdkHQ8F9UQJtKseRr3sSnr9ysboxtoswvaMVaEfvyLtMoHv9XdKUfOc0qKGzNgRFd9yRjIWVepl6Q==}
     engines: {node: '>=0.8.0'}
@@ -1369,15 +1364,6 @@ packages:
     transitivePeerDependencies:
       - debug
       - supports-color
-    dev: false
-
-  /@azure/msal-node/1.12.0:
-    resolution: {integrity: sha512-bNJe5xx3YXj7lrj9wUYl7HX4g1Be7s8VHjDhKPzOnlI54JnRKI+nQ95EmFBs3ckUYM9u82HUsHumDcB21YIC9w==}
-    engines: {node: 10 || 12 || 14 || 16 || 18}
-    dependencies:
-      '@azure/msal-common': 7.2.0
-      jsonwebtoken: 8.5.1
-      uuid: 8.3.2
     dev: false
 
   /@azure/msal-node/1.14.2:
@@ -2539,6 +2525,12 @@ packages:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
       '@types/ms': 0.7.31
+    dev: false
+
+  /@types/dotenv/6.1.1:
+    resolution: {integrity: sha512-ftQl3DtBvqHl9L16tpqqzA4YzCSXZfi7g8cQceTz5rOlYtk/IZbFjAv3mLOQlNIgOaylCQWQoBdDQHPgEBJPHg==}
+    dependencies:
+      '@types/node': 18.6.1
     dev: false
 
   /@types/eslint/8.4.5:
@@ -4146,7 +4138,7 @@ packages:
     dependencies:
       semver: 7.3.7
       shelljs: 0.8.5
-      typescript: 4.9.0-dev.20221021
+      typescript: 4.9.0-dev.20221025
     dev: false
 
   /downlevel-dts/0.8.0:
@@ -9223,8 +9215,8 @@ packages:
     hasBin: true
     dev: false
 
-  /typescript/4.9.0-dev.20221021:
-    resolution: {integrity: sha512-mtZjgf8EniRs+UtP08fC7kqPgjskImiUXAi19X4eSUfn0HHRBXx0cKnE+mjjNKkQ5R1zC5/hXYWhXheXn+WR1A==}
+  /typescript/4.9.0-dev.20221025:
+    resolution: {integrity: sha512-3TZlt+3jGBjPRVFcNX6BmlajqwNExRm4rhG4llSH5WSMX/eQ54PSueTJ5UhLn9+6/byL31/WRmJJ/7W0j+gCtQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: false
@@ -16103,7 +16095,7 @@ packages:
       '@azure/core-lro': 2.2.4
       '@azure/core-tracing': 1.0.0-preview.13
       '@azure/identity': 2.1.0
-      '@azure/msal-node': 1.12.0
+      '@azure/msal-node': 1.14.2
       '@microsoft/api-extractor': 7.31.2
       '@types/chai': 4.3.1
       '@types/mocha': 7.0.2
@@ -17695,7 +17687,7 @@ packages:
     dependencies:
       '@azure/keyvault-keys': 4.2.0
       '@azure/msal-browser': 2.28.0
-      '@azure/msal-common': 7.2.0
+      '@azure/msal-common': 7.6.0
       '@azure/msal-node': 1.14.2
       '@microsoft/api-extractor': 7.31.2
       '@types/chai': 4.3.1
@@ -18179,7 +18171,7 @@ packages:
     dev: false
 
   file:projects/maps-route.tgz:
-    resolution: {integrity: sha512-ORR/9OguVfIAnYWtjWkVaMtk538lJqkCrm3lgojrdJNy7zdv857u+CxHbNvnTtfcTKVIcwCGpS4Lz83r2lP7pQ==, tarball: file:projects/maps-route.tgz}
+    resolution: {integrity: sha512-OlYglB6w/hklu841avPID53nq/KghHT6GOuPpAgLkmI8lnqjECq9GAc09Xvv9OXh8WwNNrp/01PwnE7DmRz54g==, tarball: file:projects/maps-route.tgz}
     name: '@rush-temp/maps-route'
     version: 0.0.0
     dependencies:
@@ -18187,9 +18179,10 @@ packages:
       '@azure/core-tracing': 1.0.0-preview.13
       '@azure/identity': 2.1.0
       '@azure/maps-common': 1.0.0-beta.1
-      '@microsoft/api-extractor': 7.18.11
+      '@microsoft/api-extractor': 7.31.2
       '@types/chai': 4.3.1
       '@types/chai-as-promised': 7.1.5
+      '@types/dotenv': 6.1.1
       '@types/mocha': 7.0.2
       '@types/node': 12.20.55
       autorest: 3.6.2
@@ -18224,7 +18217,7 @@ packages:
       source-map-support: 0.5.21
       tslib: 2.4.0
       typedoc: 0.15.2
-      typescript: 4.2.4
+      typescript: 4.8.3
       util: 0.12.4
     transitivePeerDependencies:
       - bufferutil

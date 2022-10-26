@@ -7,7 +7,7 @@
 
 import { AzureKeyCredential } from "@azure/core-auth";
 // import { DefaultAzureCredential } from "@azure/identity";
-import { createMapsRouteClient, isUnexpected } from "@azure-rest/maps-route";
+import createMapsRouteClient, { isUnexpected } from "@azure-rest/maps-route/rest";
 
 // Load the .env file if it exists
 import * as dotenv from "dotenv";

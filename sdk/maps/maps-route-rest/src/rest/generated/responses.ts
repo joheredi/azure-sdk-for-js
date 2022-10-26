@@ -8,8 +8,8 @@ import {
   ErrorResponseOutput,
   RouteDirectionsOutput,
   RouteRangeResultOutput,
-  RouteDirectionsBatchResultOutput
-} from "./outputModels";
+  RouteDirectionsBatchResultOutput,
+} from "./outputModels.js";
 
 /**
  *
@@ -462,8 +462,7 @@ export interface RouteRequestRouteMatrixSync408Response extends HttpResponse {
  *
  *   > HTTP `200 OK` - Matrix request successfully processed. The response body contains all of the results.
  */
-export interface RouteRequestRouteMatrixSyncDefaultResponse
-  extends HttpResponse {
+export interface RouteRequestRouteMatrixSyncDefaultResponse extends HttpResponse {
   status: string;
   body: ErrorResponseOutput;
 }
@@ -508,8 +507,7 @@ export interface RouteGetRouteDirectionsDefaultResponse extends HttpResponse {
  *
  * Routing service provides a set of parameters for a detailed description of a vehicle-specific Consumption Model. Please check [Consumption Model](https://docs.microsoft.com/azure/azure-maps/consumption-model) for detailed explanation of the concepts and parameters involved.
  */
-export interface RouteGetRouteDirectionsWithAdditionalParameters200Response
-  extends HttpResponse {
+export interface RouteGetRouteDirectionsWithAdditionalParameters200Response extends HttpResponse {
   status: "200";
   body: RouteDirectionsOutput;
 }
@@ -711,8 +709,7 @@ export interface RouteGetRouteRangeDefaultResponse extends HttpResponse {
  * }
  * ```
  */
-export interface RouteRequestRouteDirectionsBatch200Response
-  extends HttpResponse {
+export interface RouteRequestRouteDirectionsBatch200Response extends HttpResponse {
   status: "200";
   body: RouteDirectionsBatchResultOutput;
 }
@@ -873,8 +870,7 @@ export interface RouteRequestRouteDirectionsBatch202Headers {
  * }
  * ```
  */
-export interface RouteRequestRouteDirectionsBatch202Response
-  extends HttpResponse {
+export interface RouteRequestRouteDirectionsBatch202Response extends HttpResponse {
   status: "202";
   body: Record<string, unknown>;
   headers: RawHttpHeaders & RouteRequestRouteDirectionsBatch202Headers;
@@ -1194,8 +1190,7 @@ export interface RouteGetRouteDirectionsBatch202Response extends HttpResponse {
  * }
  * ```
  */
-export interface RouteRequestRouteDirectionsBatchSync200Response
-  extends HttpResponse {
+export interface RouteRequestRouteDirectionsBatchSync200Response extends HttpResponse {
   status: "200";
   body: RouteDirectionsBatchResultOutput;
 }
@@ -1296,8 +1291,7 @@ export interface RouteRequestRouteDirectionsBatchSync200Response
  * }
  * ```
  */
-export interface RouteRequestRouteDirectionsBatchSync408Response
-  extends HttpResponse {
+export interface RouteRequestRouteDirectionsBatchSync408Response extends HttpResponse {
   status: "408";
   body: ErrorResponseOutput;
 }
@@ -1398,8 +1392,7 @@ export interface RouteRequestRouteDirectionsBatchSync408Response
  * }
  * ```
  */
-export interface RouteRequestRouteDirectionsBatchSyncDefaultResponse
-  extends HttpResponse {
+export interface RouteRequestRouteDirectionsBatchSyncDefaultResponse extends HttpResponse {
   status: string;
   body: ErrorResponseOutput;
 }

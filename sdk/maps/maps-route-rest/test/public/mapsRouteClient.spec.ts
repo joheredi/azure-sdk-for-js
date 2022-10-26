@@ -7,10 +7,10 @@ import {
   RouteMatrixQuery,
   createRouteDirectionsBatchRequest,
   toColonDelimitedLatLonString,
-} from "../../src";
+} from "../../src/index.js";
 import { Recorder, isPlaybackMode } from "@azure-tools/test-recorder";
 import { assert } from "chai";
-import { createClient, createRecorder, testLogger } from "./utils/recordedClient";
+import { createClient, createRecorder, testLogger } from "./utils/recordedClient.js";
 import {
   MapsRouteClient,
   RouteGetRouteDirectionsBatch200Response,
@@ -18,7 +18,7 @@ import {
   RouteGetRouteMatrix200Response,
   getLongRunningPoller,
   isUnexpected,
-} from "../../src/generated";
+} from "../../src/rest/generated/index.js";
 import { LatLon } from "@azure/maps-common";
 
 describe("Endpoint can be overwritten", function (this: Suite) {
