@@ -2,12 +2,19 @@
 // Licensed under the MIT license.
 
 import { TokenCredential } from "@azure/core-auth";
-import { CommonClientOptions } from "@azure/core-client";
+import {
+  CommonClientOptions,
+  createSerializer,
+  OperationParameter,
+  OperationSpec,
+} from "@azure/core-client";
 import { GeneratedMonitorIngestionClient } from "./generated";
 import { UploadLogsError, UploadLogsOptions, UploadLogsResult } from "./models";
 import { GZippingPolicy } from "./gZippingPolicy";
 import { concurrentRun } from "./utils/concurrentPoolHelper";
 import { splitDataToChunks } from "./utils/splitDataToChunksHelper";
+import * as Mappers from "./generated/models/mappers";
+import * as Parameters from "./generated/models/parameters";
 
 /**
  * Options for Monitor Logs Ingestion Client
@@ -56,19 +63,42 @@ export class LogsIngestionClient {
    * @param options - The options parameters.
    * See error response code and error response message for more detail.
    */
+
+  async upload(
+    ruleId: string,
+    streamName: string,
+    logs: ReadableStream | NodeJS.ReadableStream,
+    // eslint-disable-next-line @azure/azure-sdk/ts-naming-options
+    options?: UploadLogsOptions
+  ): Promise<UploadLogsResult>;
   async upload(
     ruleId: string,
     streamName: string,
     logs: Record<string, unknown>[],
     // eslint-disable-next-line @azure/azure-sdk/ts-naming-options
     options?: UploadLogsOptions
+  ): Promise<UploadLogsResult>;
+  async upload(
+    ruleId: string,
+    streamName: string,
+    logs: Record<string, unknown>[] | (ReadableStream | NodeJS.ReadableStream),
+    // eslint-disable-next-line @azure/azure-sdk/ts-naming-options
+    options?: UploadLogsOptions
   ): Promise<UploadLogsResult> {
     // TODO: Do we need to worry about memory issues when loading data for 100GB ?? JS max allocation is 1 or 2GB
+    if (isStream(logs)) {
+      return await this._dataClient.sendOperationRequest(
+        { ruleId, streamName, body: logs },
+        uploadOperationSpec
+      );
+    }
 
     // This splits logs into 1MB chunks
     const chunkArray = splitDataToChunks(logs);
     const noOfChunks = chunkArray.length;
-    const concurrency = Math.max(options?.maxConcurrency ?? DEFAULT_MAX_CONCURRENCY, 1);
+    const concurrency = isStream(logs)
+      ? 1
+      : Math.max(options?.maxConcurrency ?? DEFAULT_MAX_CONCURRENCY, 1);
 
     const uploadResultErrors: Array<UploadLogsError> = [];
     await concurrentRun(concurrency, chunkArray, async (eachChunk): Promise<void> => {
@@ -101,3 +131,44 @@ export class LogsIngestionClient {
     }
   }
 }
+
+function isStream(logs: any): logs is ReadableStream | NodeJS.ReadableStream {
+  return logs.getReader !== undefined || logs.read !== undefined;
+}
+
+// Operation Specifications
+const serializer = createSerializer(Mappers, /* isXml */ false);
+
+export const body: OperationParameter = {
+  parameterPath: "body",
+  mapper: {
+    serializedName: "body",
+    required: true,
+    type: {
+      name: "Stream",
+    },
+  },
+};
+
+const uploadOperationSpec: OperationSpec = {
+  path: "/dataCollectionRules/{ruleId}/streams/{stream}",
+  httpMethod: "POST",
+  responses: {
+    204: {},
+    default: {
+      bodyMapper: Mappers.ErrorResponse,
+      headersMapper: Mappers.GeneratedMonitorIngestionClientUploadExceptionHeaders,
+    },
+  },
+  requestBody: body,
+  queryParameters: [Parameters.apiVersion],
+  urlParameters: [Parameters.endpoint, Parameters.ruleId, Parameters.stream],
+  headerParameters: [
+    Parameters.contentType,
+    Parameters.accept,
+    Parameters.contentEncoding,
+    Parameters.xMsClientRequestId,
+  ],
+  mediaType: "json",
+  serializer,
+};
