@@ -24,7 +24,7 @@ package.
 - PowerShell 7
 - [Azure Powershell cmdlets](https://docs.microsoft.com/powershell/azure/install-az-ps?view=azps-4.7.0)
 - Node 12.x
-- Azure SDK for JS [`dev-tool`](https://github.com/Azure/azure-sdk-for-js/blob/main/common/tools/dev-tool)
+- Azure SDK for JS [`dev-tool`](https://github.com/Azure/azure-sdk-for-js/blob/main/eng/tools/dev-tool)
 
 ## Configuring Samples
 

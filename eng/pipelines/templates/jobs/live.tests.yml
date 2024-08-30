@@ -170,7 +170,7 @@ jobs:
             pwsh: true
             ScriptType: InlineScript
             Inline: |
-              Start-Process "node" -ArgumentList "launch.js run start-browser-relay" -NoNewWindow -WorkingDirectory "$(Build.SourcesDirectory)/common/tools/dev-tool"
+              Start-Process "node" -ArgumentList "launch.js run start-browser-relay" -NoNewWindow -WorkingDirectory "$(Build.SourcesDirectory)/eng/tools/dev-tool"
               for ($i = 0; $i -lt 10; $i++) {
                   try {
                       Invoke-WebRequest -Uri "http://localhost:4895/health" | Out-Null
@@ -191,7 +191,7 @@ jobs:
 
       - ${{ else }}:
         - pwsh: |
-            Start-Process "node" -ArgumentList "launch.js run start-browser-relay" -NoNewWindow -WorkingDirectory "$(Build.SourcesDirectory)/common/tools/dev-tool"
+            Start-Process "node" -ArgumentList "launch.js run start-browser-relay" -NoNewWindow -WorkingDirectory "$(Build.SourcesDirectory)/eng/tools/dev-tool"
             for ($i = 0; $i -lt 10; $i++) {
                 try {
                     Invoke-WebRequest -Uri "http://localhost:4895/health" | Out-Null

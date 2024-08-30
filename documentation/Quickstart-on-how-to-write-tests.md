@@ -162,7 +162,7 @@ Generate an `sdk/<service-folder>/<package-name>/assets.json` file by running th
 ```bash
 npx dev-tool test-proxy init
 ```
-Note: If you [install `dev-tool` globally](https://github.com/Azure/azure-sdk-for-js/tree/main/common/tools/dev-tool#installation), you don't need `npx` prefix in the above command
+Note: If you [install `dev-tool` globally](https://github.com/Azure/azure-sdk-for-js/tree/main/eng/tools/dev-tool#installation), you don't need `npx` prefix in the above command
 
 This command would generate an `assets.json` file with an empty tag.
 

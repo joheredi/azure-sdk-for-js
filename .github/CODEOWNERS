@@ -1559,13 +1559,13 @@ sdk/ai/ai-inference-rest @glharper @dargilco @jhakulin
 ###########
 
 # PRLabel: %EngSys
-/common/tools/ @Azure/azure-sdk-js-dev
+/eng/tools/ @Azure/azure-sdk-js-dev
 
 # PRLabel: %dev-tool
-/common/tools/dev-tool/ @jeremymeng @mpodwysocki @timovv
+/eng/tools/dev-tool/ @jeremymeng @mpodwysocki @timovv
 
 # PRLabel: %eslint plugin
-/common/tools/eslint-plugin-azure-sdk*/ @deyaaeldeen @jeremymeng
+/eng/tools/eslint-plugin-azure-sdk*/ @deyaaeldeen @jeremymeng
 
 /eng/tools/dependency-testing @KarishmaGhiya @jeremymeng
 

@@ -418,7 +418,7 @@ async function main(argv) {
   await replaceSourceReferences(targetPackagePath, targetPackage.packageName, testFolder);
   await copyRepoFile(
     repoRoot,
-    "common/tools",
+    "eng/tools",
     "mocha-multi-reporter.js",
     targetPackagePath,
     testFolder,

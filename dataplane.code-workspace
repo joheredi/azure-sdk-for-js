@@ -229,11 +229,11 @@
     },
     {
       "name": "eslint plugin",
-      "path": "common/tools/eslint-plugin-azure-sdk"
+      "path": "eng/tools/eslint-plugin-azure-sdk"
     },
     {
       "name": "dev tool",
-      "path": "common/tools/dev-tool"
+      "path": "eng/tools/dev-tool"
     },
     {
       "name": "purview-scanning",

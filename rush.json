@@ -567,7 +567,7 @@
     },
     {
       "packageName": "@azure/dev-tool",
-      "projectFolder": "common/tools/dev-tool",
+      "projectFolder": "eng/tools/dev-tool",
       "versionPolicyName": "utility",
       // Add Identity to decoupledLocalDependencies so that dev-tool uses the package from npm, avoiding a cyclic dependency.
       "decoupledLocalDependencies": ["@azure/identity"]
@@ -800,12 +800,12 @@
     },
     {
       "packageName": "@azure/eslint-plugin-azure-sdk",
-      "projectFolder": "common/tools/eslint-plugin-azure-sdk",
+      "projectFolder": "eng/tools/eslint-plugin-azure-sdk",
       "versionPolicyName": "utility"
     },
     {
       "packageName": "@azure-tools/vite-plugin-browser-test-map",
-      "projectFolder": "common/tools/vite-plugin-browser-test-map",
+      "projectFolder": "eng/tools/vite-plugin-browser-test-map",
       "versionPolicyName": "utility"
     },
     {

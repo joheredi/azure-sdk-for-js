@@ -120,7 +120,7 @@ To add perf tests for the `sdk/<service>/<service-sdk>` package, follow the step
    Make sure to add the "setup" step in package.json.
 
    ```json
-       "setup": "node ../../../../common/tools/perf-tests-track-1-setup.js",
+       "setup": "node ../../../../eng/tools/perf-tests-track-1-setup.js",
    ```
 
 4. Run `rush update` followed by `npm run setup` to be able to use the perf framework for track-1 perf tests.

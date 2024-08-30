@@ -262,7 +262,7 @@ We used to have a git hook that formats your changed files on commit but it was 
 
 ### Enforcing Azure SDK design guidelines
 
-Our libraries follow the [TypeScript SDK design guidelines](https://azure.github.io/azure-sdk/typescript_introduction.html) to enhance the productivity of developers connecting to Azure services. These guidelines are enforced by our custom [ESLint plugin](https://github.com/Azure/azure-sdk-for-js/tree/main/common/tools/eslint-plugin-azure-sdk). Follow these instruction to use the plugin:
+Our libraries follow the [TypeScript SDK design guidelines](https://azure.github.io/azure-sdk/typescript_introduction.html) to enhance the productivity of developers connecting to Azure services. These guidelines are enforced by our custom [ESLint plugin](https://github.com/Azure/azure-sdk-for-js/tree/main/eng/tools/eslint-plugin-azure-sdk). Follow these instruction to use the plugin:
 
 - [add `eslint` to your `devDependencies`](https://github.com/Azure/azure-sdk-for-js/blob/8ec9801c17b175573a115fc8b2d6cbaeb17b0b09/sdk/template/template/package.json#L106)
 - [add `eslint-plugin-azure-sdk` to your `devDependencies`](https://github.com/Azure/azure-sdk-for-js/blob/8ec9801c17b175573a115fc8b2d6cbaeb17b0b09/sdk/template/template/package.json#L93)

@@ -131,7 +131,7 @@ Note the difference between the dev-tool `node-ts-input` and `node-js-input` com
 - `node-ts-input` runs the tests using `ts-node`, without code coverage.
 - `node-js-input` runs the tests using the built JavaScript output, and generates coverage reporting using `nyc`.
 
-Read more at [dev-tool commands #usage](https://github.com/Azure/azure-sdk-for-js/blob/main/common/tools/dev-tool/README.md#usage)
+Read more at [dev-tool commands #usage](https://github.com/Azure/azure-sdk-for-js/blob/main/eng/tools/dev-tool/README.md#usage)
 
 The above `dev-tool` commands run the tests with the default configs and concurrently starts(runs) the test-proxy tool in a detached process in the background in record/playback modes if it is not already active. Additionally, more options can be passed to override the default configs.
 
