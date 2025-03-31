@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "target": "es2023",
+    "module": "nodenext",
+    "lib": [
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "sourceMap": true,
+    "importHelpers": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "composite": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "strictBuiltinIteratorReturn": true,
+    "alwaysStrict": true,
+    "useUnknownInCatchVariables": true,
+    "useDefineForClassFields": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleDetection": "force",
+    "resolvePackageJsonExports": true,
+    "resolvePackageJsonImports": true,
+    "emitDeclarationOnly": false,
+    "incremental": true,
+    "tsBuildInfoFile": "/home/joheredi/dev/azure-sdk-for-js/common/temp/node_modules/.pnpm/vitest@3.0.6_@types+debug@4.1.12_@types+node@18.19.76_@vitest+browser@3.0.6_msw@2.7.2_@types+_3f5uoj4adhmexhy3v7pf5dtp3m/node_modules/vitest/dist/chunks/tsconfig.test.tmp.tsbuildinfo"
+  },
+  "include": [
+    "/home/joheredi/dev/azure-sdk-for-js/sdk/core/ts-http-runtime/test",
+    "/home/joheredi/dev/azure-sdk-for-js/sdk/core/ts-http-runtime/src"
+  ],
+  "exclude": [
+    "/home/joheredi/dev/azure-sdk-for-js/sdk/core/ts-http-runtime/test/stress",
+    "/home/joheredi/dev/azure-sdk-for-js/sdk/core/ts-http-runtime/test/snippets.spec.ts"
+  ]
+}

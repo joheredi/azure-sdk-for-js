@@ -54,29 +54,18 @@ export { createPipelineRequest, type PipelineRequestOptions } from "./pipelineRe
 export type { Pipeline, PipelinePolicy, AddPolicyOptions, PipelinePhase } from "./pipeline.js";
 export { RestError, isRestError, type RestErrorOptions } from "./restError.js";
 export { stringToUint8Array, uint8ArrayToString, type EncodingType } from "./util/bytesEncoding.js";
-export { getClient } from "./client/getClient.js";
-export { operationOptionsToRequestParameters } from "./client/operationOptionHelpers.js";
-export { createRestError } from "./client/restError.js";
 export type {
-  Client,
-  ClientOptions,
   OperationOptions,
   AdditionalPolicyConfig,
-  PathUnchecked,
-  PathUncheckedResponse,
-  HttpResponse,
   RawResponseCallback,
   OperationRequestOptions,
-  PathParameters,
-  ResourceMethods,
-  PathParameterWithOptions,
-  StreamableMethod,
-  RequestParameters,
-  HttpNodeStreamResponse,
-  HttpBrowserStreamResponse,
-  FullOperationResponse,
 } from "./client/common.js";
 export type { PipelineOptions, TelemetryOptions } from "./createPipelineFromOptions.js";
+export { createPipelineFromOptions } from "./createPipelineFromOptions.js";
 export type { LogPolicyOptions } from "./policies/logPolicy.js";
 export type { RedirectPolicyOptions } from "./policies/redirectPolicy.js";
 export type { UserAgentPolicyOptions } from "./policies/userAgentPolicy.js";
+export type { CreatePipelineForClientOptions } from "./client/clientHelpers.js";
+export * from "./policies/index.js";
+export * from "./fetchHttpClient.js";
+export * from "./client/index.js";

@@ -4,29 +4,28 @@
 import type { HttpClient } from "../interfaces.js";
 import type { Pipeline } from "../pipeline.js";
 import { createDefaultHttpClient } from "../defaultHttpClient.js";
+import type { PipelineOptions } from "../createPipelineFromOptions.js";
 import { createPipelineFromOptions } from "../createPipelineFromOptions.js";
-import type { ClientOptions } from "./common.js";
-import { apiVersionPolicy } from "./apiVersionPolicy.js";
-import {
-  isApiKeyCredential,
-  isBasicCredential,
-  isBearerTokenCredential,
-  isOAuth2TokenCredential,
-} from "../auth/credentials.js";
 import { apiKeyAuthenticationPolicy } from "../policies/auth/apiKeyAuthenticationPolicy.js";
 import { basicAuthenticationPolicy } from "../policies/auth/basicAuthenticationPolicy.js";
 import { bearerAuthenticationPolicy } from "../policies/auth/bearerAuthenticationPolicy.js";
 import { oauth2AuthenticationPolicy } from "../policies/auth/oauth2AuthenticationPolicy.js";
+import { isApiKeyCredential, isBasicCredential, isBearerTokenCredential, isOAuth2TokenCredential, type ClientCredential } from "../auth/credentials.js";
+import type { AuthScheme } from "../auth/schemes.js";
 
 let cachedHttpClient: HttpClient | undefined;
+
+export interface CreatePipelineForClientOptions extends PipelineOptions {
+  credential?: ClientCredential;
+  authSchemes?: AuthScheme[];
+  allowInsecureConnection?: boolean;
+}
 
 /**
  * Creates a default rest pipeline to re-use accross Rest Level Clients
  */
-export function createDefaultPipeline(options: ClientOptions = {}): Pipeline {
+export function createDefaultPipeline(options: CreatePipelineForClientOptions = {}): Pipeline {
   const pipeline = createPipelineFromOptions(options);
-
-  pipeline.addPolicy(apiVersionPolicy(options));
 
   const { credential, authSchemes, allowInsecureConnection } = options;
   if (credential) {

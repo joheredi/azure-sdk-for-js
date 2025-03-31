@@ -50,6 +50,10 @@ export interface PipelineOptions {
    * Options for setting common telemetry and tracing info to outgoing requests.
    */
   telemetryOptions?: TelemetryOptions;
+    /**
+   * Options to configure request/response logging.
+   */
+    loggingOptions?: LogPolicyOptions;
 }
 
 /**
@@ -62,22 +66,12 @@ export interface TelemetryOptions {
   clientRequestIdHeaderName?: string;
 }
 
-/**
- * Defines options that are used to configure internal options of
- * the HTTP pipeline for an SDK client.
- */
-export interface InternalPipelineOptions extends PipelineOptions {
-  /**
-   * Options to configure request/response logging.
-   */
-  loggingOptions?: LogPolicyOptions;
-}
 
 /**
  * Create a new pipeline with a default set of customizable policies.
  * @param options - Options to configure a custom pipeline.
  */
-export function createPipelineFromOptions(options: InternalPipelineOptions): Pipeline {
+export function createPipelineFromOptions(options: PipelineOptions): Pipeline {
   const pipeline = createEmptyPipeline();
 
   if (isNodeLike) {

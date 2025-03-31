@@ -68,22 +68,6 @@ export interface PipelineRequestOptions {
   formData?: FormDataMap;
 
   /**
-   * A list of response status codes whose corresponding PipelineResponse body should be treated as a stream.
-   */
-  streamResponseStatusCodes?: Set<number>;
-
-  /**
-   * BROWSER ONLY
-   *
-   * A browser only option to enable use of the Streams API. If this option is set and streaming is used
-   * (see `streamResponseStatusCodes`), the response will have a property `browserStream` instead of
-   * `blobBody` which will be undefined.
-   *
-   * Default value is false
-   */
-  enableBrowserStreams?: boolean;
-
-  /**
    * Proxy configuration.
    */
   proxySettings?: ProxySettings;
@@ -120,7 +104,6 @@ class PipelineRequestImpl implements PipelineRequest {
   public multipartBody?: MultipartRequestBody;
   public formData?: FormDataMap;
   public streamResponseStatusCodes?: Set<number>;
-  public enableBrowserStreams: boolean;
 
   public proxySettings?: ProxySettings;
   public disableKeepAlive: boolean;
@@ -140,14 +123,12 @@ class PipelineRequestImpl implements PipelineRequest {
     this.formData = options.formData;
     this.disableKeepAlive = options.disableKeepAlive ?? false;
     this.proxySettings = options.proxySettings;
-    this.streamResponseStatusCodes = options.streamResponseStatusCodes;
     this.withCredentials = options.withCredentials ?? false;
     this.abortSignal = options.abortSignal;
     this.onUploadProgress = options.onUploadProgress;
     this.onDownloadProgress = options.onDownloadProgress;
     this.requestId = options.requestId || randomUUID();
     this.allowInsecureConnection = options.allowInsecureConnection ?? false;
-    this.enableBrowserStreams = options.enableBrowserStreams ?? false;
   }
 }
 

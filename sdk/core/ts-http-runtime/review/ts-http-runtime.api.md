@@ -33,6 +33,19 @@ export interface Agent {
 }
 
 // @public
+export function apiKeyAuthenticationPolicy(options: ApiKeyAuthenticationPolicyOptions): PipelinePolicy;
+
+// @public
+export const apiKeyAuthenticationPolicyName = "apiKeyAuthenticationPolicy";
+
+// @public
+export interface ApiKeyAuthenticationPolicyOptions {
+    allowInsecureConnection?: boolean;
+    authSchemes?: AuthScheme[];
+    credential: ApiKeyCredential;
+}
+
+// @public
 export interface ApiKeyAuthScheme {
     apiKeyLocation: "query" | "header" | "cookie";
     kind: "apiKey";
@@ -57,6 +70,19 @@ export interface AuthorizationCodeFlow {
 export type AuthScheme = BasicAuthScheme | BearerAuthScheme | NoAuthAuthScheme | ApiKeyAuthScheme | OAuth2AuthScheme<OAuth2Flow[]>;
 
 // @public
+export function basicAuthenticationPolicy(options: BasicAuthenticationPolicyOptions): PipelinePolicy;
+
+// @public
+export const basicAuthenticationPolicyName = "bearerAuthenticationPolicy";
+
+// @public
+export interface BasicAuthenticationPolicyOptions {
+    allowInsecureConnection?: boolean;
+    authSchemes?: AuthScheme[];
+    credential: BasicCredential;
+}
+
+// @public
 export interface BasicAuthScheme {
     kind: "http";
     scheme: "basic";
@@ -66,6 +92,19 @@ export interface BasicAuthScheme {
 export interface BasicCredential {
     password: string;
     username: string;
+}
+
+// @public
+export function bearerAuthenticationPolicy(options: BearerAuthenticationPolicyOptions): PipelinePolicy;
+
+// @public
+export const bearerAuthenticationPolicyName = "bearerAuthenticationPolicy";
+
+// @public
+export interface BearerAuthenticationPolicyOptions {
+    allowInsecureConnection?: boolean;
+    authSchemes?: AuthScheme[];
+    credential: BearerTokenCredential;
 }
 
 // @public
@@ -86,13 +125,6 @@ export interface BodyPart {
 }
 
 // @public
-export interface Client {
-    path: Function;
-    pathUnchecked: PathUnchecked;
-    pipeline: Pipeline;
-}
-
-// @public
 export type ClientCredential = OAuth2TokenCredential<OAuth2Flow> | BearerTokenCredential | BasicCredential | ApiKeyCredential;
 
 // @public
@@ -104,31 +136,31 @@ export interface ClientCredentialsFlow {
 }
 
 // @public
-export type ClientOptions = PipelineOptions & {
-    authSchemes?: AuthScheme[];
-    credential?: ClientCredential;
-    endpoint?: string;
-    apiVersion?: string;
-    allowInsecureConnection?: boolean;
-    additionalPolicies?: AdditionalPolicyConfig[];
-    httpClient?: HttpClient;
-    loggingOptions?: LogPolicyOptions;
-};
-
-// @public
 export function createClientLogger(namespace: string): TypeSpecRuntimeLogger;
+
+// Warning: (ae-internal-missing-underscore) The name "createFetchHttpClient" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal
+export function createFetchHttpClient(): HttpClient;
 
 // @public
 export function createHttpHeaders(rawHeaders?: RawHttpHeadersInput): HttpHeaders;
 
+// @public (undocumented)
+export interface CreatePipelineForClientOptions extends PipelineOptions {
+    // (undocumented)
+    allowInsecureConnection?: boolean;
+    // (undocumented)
+    authSchemes?: AuthScheme[];
+    // (undocumented)
+    credential?: ClientCredential;
+}
+
+// @public
+export function createPipelineFromOptions(options: PipelineOptions): Pipeline;
+
 // @public
 export function createPipelineRequest(options: PipelineRequestOptions): PipelineRequest;
-
-// @public
-export function createRestError(response: PathUncheckedResponse): RestError;
-
-// @public
-export function createRestError(message: string, response: PathUncheckedResponse): RestError;
 
 // @public
 export interface Debugger {
@@ -152,29 +184,14 @@ export type FormDataMap = {
 export type FormDataValue = string | Blob | File;
 
 // @public
-export interface FullOperationResponse extends PipelineResponse {
-    parsedBody?: RequestBodyType;
-    rawHeaders?: RawHttpHeaders;
-    request: PipelineRequest;
-}
-
-// @public
 export interface GetBearerTokenOptions {
     abortSignal?: AbortSignal;
 }
 
 // @public
-export function getClient(endpoint: string, clientOptions?: ClientOptions): Client;
-
-// @public
 export interface GetOAuth2TokenOptions {
     abortSignal?: AbortSignal;
 }
-
-// @public
-export type HttpBrowserStreamResponse = HttpResponse & {
-    body?: ReadableStream<Uint8Array>;
-};
 
 // @public
 export interface HttpClient {
@@ -194,19 +211,6 @@ export interface HttpHeaders extends Iterable<[string, string]> {
 
 // @public
 export type HttpMethods = "GET" | "PUT" | "POST" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS" | "TRACE";
-
-// @public
-export type HttpNodeStreamResponse = HttpResponse & {
-    body?: NodeJS.ReadableStream;
-};
-
-// @public
-export type HttpResponse = {
-    request: PipelineRequest;
-    headers: RawHttpHeaders;
-    body: unknown;
-    status: string;
-};
 
 // @public
 export interface ImplicitFlow {
@@ -244,6 +248,19 @@ export interface NoAuthAuthScheme {
 }
 
 // @public
+export function oauth2AuthenticationPolicy<TFlows extends OAuth2Flow>(options: OAuth2AuthenticationPolicyOptions<TFlows>): PipelinePolicy;
+
+// @public
+export const oauth2AuthenticationPolicyName = "oauth2AuthenticationPolicy";
+
+// @public
+export interface OAuth2AuthenticationPolicyOptions<TFlows extends OAuth2Flow> {
+    allowInsecureConnection?: boolean;
+    authSchemes?: AuthScheme[];
+    credential: OAuth2TokenCredential<TFlows>;
+}
+
+// @public
 export interface OAuth2AuthScheme<TFlows extends OAuth2Flow[]> {
     flows: TFlows;
     kind: "oauth2";
@@ -265,15 +282,11 @@ export interface OperationOptions {
 }
 
 // @public
-export function operationOptionsToRequestParameters(options: OperationOptions): RequestParameters;
-
-// @public
 export interface OperationRequestOptions {
     allowInsecureConnection?: boolean;
     headers?: RawHttpHeadersInput;
     onDownloadProgress?: (progress: TransferProgressEvent) => void;
     onUploadProgress?: (progress: TransferProgressEvent) => void;
-    skipUrlEncoding?: boolean;
     timeout?: number;
 }
 
@@ -284,27 +297,6 @@ export interface PasswordFlow {
     scopes?: string[];
     tokenUrl: string;
 }
-
-// @public
-export type PathParameters<TRoute extends string> = TRoute extends `${infer _Head}/{${infer _Param}}${infer Tail}` ? [
-pathParameter: string | number | PathParameterWithOptions,
-...pathParameters: PathParameters<Tail>
-] : [
-];
-
-// @public
-export interface PathParameterWithOptions {
-    allowReserved?: boolean;
-    value: string | number;
-}
-
-// @public
-export type PathUnchecked = <TPath extends string>(path: TPath, ...args: PathParameters<TPath>) => ResourceMethods<StreamableMethod>;
-
-// @public
-export type PathUncheckedResponse = HttpResponse & {
-    body: any;
-};
 
 // @public
 export interface Pipeline {
@@ -321,6 +313,7 @@ export interface Pipeline {
 // @public
 export interface PipelineOptions {
     agent?: Agent;
+    loggingOptions?: LogPolicyOptions;
     proxyOptions?: ProxySettings;
     redirectOptions?: RedirectPolicyOptions;
     retryOptions?: PipelineRetryOptions;
@@ -368,7 +361,6 @@ export interface PipelineRequestOptions {
     allowInsecureConnection?: boolean;
     body?: RequestBodyType;
     disableKeepAlive?: boolean;
-    enableBrowserStreams?: boolean;
     formData?: FormDataMap;
     headers?: HttpHeaders;
     method?: HttpMethods;
@@ -377,7 +369,6 @@ export interface PipelineRequestOptions {
     onUploadProgress?: (progress: TransferProgressEvent) => void;
     proxySettings?: ProxySettings;
     requestId?: string;
-    streamResponseStatusCodes?: Set<number>;
     timeout?: number;
     url: string;
     withCredentials?: boolean;
@@ -385,11 +376,10 @@ export interface PipelineRequestOptions {
 
 // @public
 export interface PipelineResponse {
-    blobBody?: Promise<Blob>;
-    bodyAsText?: string | null;
-    browserStreamBody?: ReadableStream<Uint8Array>;
+    body?: ReadableStream<Uint8Array> | null;
     headers: HttpHeaders;
-    readableStreamBody?: NodeJS.ReadableStream;
+    // (undocumented)
+    rawResponse?: Response;
     request: PipelineRequest;
     status: number;
 }
@@ -424,7 +414,7 @@ export type RawHttpHeaders = {
 export type RawHttpHeadersInput = Record<string, string | number | boolean>;
 
 // @public
-export type RawResponseCallback = (rawResponse: FullOperationResponse, error?: unknown) => void;
+export type RawResponseCallback = (rawResponse: PipelineResponse, error?: unknown) => void;
 
 // @public
 export interface RedirectPolicyOptions {
@@ -433,35 +423,6 @@ export interface RedirectPolicyOptions {
 
 // @public
 export type RequestBodyType = NodeJS.ReadableStream | (() => NodeJS.ReadableStream) | ReadableStream<Uint8Array> | (() => ReadableStream<Uint8Array>) | Blob | ArrayBuffer | ArrayBufferView | FormData | string | null;
-
-// @public
-export type RequestParameters = {
-    headers?: RawHttpHeadersInput;
-    accept?: string;
-    body?: unknown;
-    queryParameters?: Record<string, unknown>;
-    contentType?: string;
-    allowInsecureConnection?: boolean;
-    skipUrlEncoding?: boolean;
-    pathParameters?: Record<string, any>;
-    timeout?: number;
-    onUploadProgress?: (progress: TransferProgressEvent) => void;
-    onDownloadProgress?: (progress: TransferProgressEvent) => void;
-    abortSignal?: AbortSignal;
-    onResponse?: RawResponseCallback;
-};
-
-// @public
-export interface ResourceMethods<TResponse = PromiseLike<PathUncheckedResponse>> {
-    delete: (options?: RequestParameters) => TResponse;
-    get: (options?: RequestParameters) => TResponse;
-    head: (options?: RequestParameters) => TResponse;
-    options: (options?: RequestParameters) => TResponse;
-    patch: (options?: RequestParameters) => TResponse;
-    post: (options?: RequestParameters) => TResponse;
-    put: (options?: RequestParameters) => TResponse;
-    trace: (options?: RequestParameters) => TResponse;
-}
 
 // @public
 export class RestError extends Error {
@@ -486,11 +447,10 @@ export interface RestErrorOptions {
 // @public
 export type SendRequest = (request: PipelineRequest) => Promise<PipelineResponse>;
 
+// Warning: (ae-forgotten-export) The symbol "RequestOptions" needs to be exported by the entry point index.d.ts
+//
 // @public
-export type StreamableMethod<TResponse = PathUncheckedResponse> = PromiseLike<TResponse> & {
-    asNodeStream: () => Promise<HttpNodeStreamResponse>;
-    asBrowserStream: () => Promise<HttpBrowserStreamResponse>;
-};
+export function sendRequest(method: HttpMethods, url: string, pipeline: Pipeline, options?: RequestOptions, customHttpClient?: HttpClient): Promise<PipelineResponse>;
 
 // @public
 export function stringToUint8Array(value: string, format: EncodingType): Uint8Array;

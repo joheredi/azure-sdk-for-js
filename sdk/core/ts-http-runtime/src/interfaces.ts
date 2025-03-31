@@ -260,35 +260,12 @@ export interface PipelineResponse {
    * The HTTP response headers.
    */
   headers: HttpHeaders;
-
   /**
-   * The response body as text (string format)
+   * If the response is streamed, this is a ReadableStream.
+   * Otherwise, it might be null (for example, for HEAD requests).
    */
-  bodyAsText?: string | null;
-
-  /**
-   * BROWSER ONLY
-   *
-   * The response body as a browser Blob.
-   * Always undefined in node.js.
-   */
-  blobBody?: Promise<Blob>;
-
-  /**
-   * BROWSER ONLY
-   *
-   * The response body as a browser ReadableStream.
-   * Always undefined in node.js.
-   */
-  browserStreamBody?: ReadableStream<Uint8Array>;
-
-  /**
-   * NODEJS ONLY
-   *
-   * The response body as a node.js Readable stream.
-   * Always undefined in the browser.
-   */
-  readableStreamBody?: NodeJS.ReadableStream;
+  body?: ReadableStream<Uint8Array> | null;
+  rawResponse?: Response;
 }
 
 /**

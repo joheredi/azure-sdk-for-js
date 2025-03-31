@@ -14,14 +14,6 @@ import { createHttpHeaders } from "./httpHeaders.js";
 import { isNodeReadableStream, isWebReadableStream } from "./util/typeGuards.js";
 
 /**
- * Checks if the body is a Blob or Blob-like
- */
-function isBlob(body: unknown): body is Blob {
-  // File objects count as a type of Blob, so we want to use instanceof explicitly
-  return (typeof Blob === "function" || typeof Blob === "object") && body instanceof Blob;
-}
-
-/**
  * A HttpClient implementation that uses window.fetch to send HTTP requests.
  * @internal
  */
@@ -85,60 +77,59 @@ async function makeRequest(request: PipelineRequest): Promise<PipelineResponse> 
      * It will not work as you expect.
      */
     const response = await fetch(request.url, requestInit);
-    // If we're uploading a blob, we need to fire the progress event manually
-    if (isBlob(request.body) && request.onUploadProgress) {
-      request.onUploadProgress({ loadedBytes: request.body.size });
+    let responseBody = response.body;
+    // If a download progress callback is provided and the response body is streamable,
+  // wrap it with a progress reporting stream.
+  if (request.onDownloadProgress && responseBody) {
+    responseBody = createProgressDownloadStream(responseBody, request.onDownloadProgress, response.headers);
+  }
+
+    return {
+      status: response.status,
+      headers: buildPipelineHeaders(response),
+      request,
+      body: responseBody,
+      rawResponse: response,
     }
-    return buildPipelineResponse(response, request, abortControllerCleanup);
   } catch (e) {
     abortControllerCleanup?.();
     throw e;
   }
 }
 
+
 /**
- * Creates a pipeline response from a Fetch response;
+ * Wraps a ReadableStream for download progress tracking.
  */
-async function buildPipelineResponse(
-  httpResponse: Response,
-  request: PipelineRequest,
-  abortControllerCleanup?: () => void,
-): Promise<PipelineResponse> {
-  const headers = buildPipelineHeaders(httpResponse);
-  const response: PipelineResponse = {
-    request,
-    headers,
-    status: httpResponse.status,
-  };
+function createProgressDownloadStream(
+  stream: ReadableStream<Uint8Array>,
+  onDownloadProgress: (progress: TransferProgressEvent) => void,
+  headers: Headers
+): ReadableStream<Uint8Array> {
+  let downloaded = 0;
+  // Attempt to extract totalBytes from the Content-Length header.
+  const totalBytesHeader = headers.get("Content-Length");
+  const totalBytes = totalBytesHeader ? parseInt(totalBytesHeader, 10) : undefined;
 
-  const bodyStream = isWebReadableStream(httpResponse.body)
-    ? buildBodyStream(httpResponse.body, {
-        onProgress: request.onDownloadProgress,
-        onEnd: abortControllerCleanup,
-      })
-    : httpResponse.body;
-
-  if (
-    // Value of POSITIVE_INFINITY in streamResponseStatusCodes is considered as any status code
-    request.streamResponseStatusCodes?.has(Number.POSITIVE_INFINITY) ||
-    request.streamResponseStatusCodes?.has(response.status)
-  ) {
-    if (request.enableBrowserStreams) {
-      response.browserStreamBody = bodyStream ?? undefined;
-    } else {
-      const responseStream = new Response(bodyStream);
-      response.blobBody = responseStream.blob();
-      abortControllerCleanup?.();
-    }
-  } else {
-    const responseStream = new Response(bodyStream);
-
-    response.bodyAsText = await responseStream.text();
-    abortControllerCleanup?.();
-  }
-
-  return response;
+  return new ReadableStream({
+    async pull(controller) {
+      const reader = stream.getReader();
+      const { done, value } = await reader.read();
+      if (done) {
+        controller.close();
+        return;
+      }
+      downloaded += value.byteLength;
+      onDownloadProgress({loadedBytes: downloaded, totalBytes} as any);
+      controller.enqueue(value);
+    },
+    cancel(reason) {
+      // Propagate cancellation.
+      stream.cancel(reason);
+    },
+  });
 }
+
 
 function setupAbortSignal(request: PipelineRequest): {
   abortController: AbortController;
@@ -172,7 +163,8 @@ function setupAbortSignal(request: PipelineRequest): {
   }
 
   // If a timeout was passed, call the abort signal once the time elapses
-  if (request.timeout > 0) {
+  const timeout = request.timeout ?? 0;
+  if (timeout > 0) {
     setTimeout(() => {
       abortController.abort();
     }, request.timeout);
