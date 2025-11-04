@@ -1,7 +1,15 @@
 # Release History
     
 ## 7.0.0 (2025-06-05)
-    
+### 🚀 **Migrate Faster with Copilot**
+
+#### **Step 1: Open Migration Instructions in VS Code**
+ [Azure SDK Migration Instructions](../../../documentation/azure-sdk-typespec-migration.instructions.md)<br />[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](vscode:chat-instructions/install?url=../../../documentation/azure-sdk-migration.instructions.md)<br />[![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://aka.ms/azsdk/migrate?url=vscode-insiders:chat-instructions%3Ainstall%2Furl%3D../../../documentation/azure-sdk-typespec-migration.instructions.md)
+
+
+#### **Step 2: Copy This Prompt into Copilot**
+> using #file:azure-sdk-migration.instructions.md azsdk upgrade @azure/arm-avs 7.0.0
+
 ### Features Added
 
   - Added operation group HostsOperations
